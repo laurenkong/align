@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Align International</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FDFCFA;--warm:#F5F0EB;--warm-dk:#EBE4DA;--ink:#1C1917;--ink2:#57534E;--ink3:#A8A29E;--accent:#B8533A;--accent-dk:#9A4430;--navy:#1E293B;--navy-lt:#334155;--forest:#3A5A40;--border:rgba(0,0,0,.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+.topbar{background:var(--navy);text-align:center;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.3px;position:fixed;top:0;left:0;right:0;z-index:101;}
+.topbar a{color:rgba(255,255,255,.9);font-weight:600;text-decoration:none;margin-left:4px;}.topbar a:hover{text-decoration:underline;color:#fff;}
+
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;background:rgba(253,252,250,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--navy);text-decoration:none;letter-spacing:-.4px;}
+.nav-r{display:flex;gap:28px;align-items:center;}
+.nav-r a{font-size:14px;font-weight:500;letter-spacing:.5px;color:var(--ink2);text-decoration:none;transition:.2s;}.nav-r a:hover{color:var(--ink);}
+.nav-cta{background:var(--navy);color:#fff!important;padding:11px 26px;border-radius:4px;transition:background .2s;}.nav-cta:hover{background:var(--navy-lt)!important;}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:200;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:.3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(253,252,250,0.98);backdrop-filter:blur(20px);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--ink);text-decoration:none;font-weight:500;transition:.2s;}
+.mobile-menu a:hover{color:var(--accent);}
+.mobile-menu .nav-cta{font-family:'Source Sans 3',sans-serif;font-size:16px;margin-top:12px;padding:14px 40px;}
+
+.btn{display:inline-block;padding:15px 36px;font-size:15px;font-weight:600;text-decoration:none;border-radius:4px;transition:.2s;}
+.btn-white{background:#fff;color:var(--accent);}.btn-white:hover{background:var(--warm);}
+.fade-up{opacity:.92;transform:translateY(12px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1);}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ── CONTACT LAYOUT ── */
+.contact{padding:160px 52px 96px;background:var(--bg);}
+.contact-grid{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:72px;align-items:start;}
+
+/* Left column */
+.contact-info h1{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:400;line-height:1.2;margin-bottom:32px;}
+.info-block{margin-bottom:28px;}
+.info-label{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.info-block p{font-size:17px;color:var(--ink2);line-height:1.7;}
+.info-block a{color:var(--accent);text-decoration:none;font-weight:500;}.info-block a:hover{text-decoration:underline;}
+.contact-social{display:flex;gap:14px;margin-top:8px;}
+.contact-social a{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:var(--warm);color:var(--ink2);transition:.2s;text-decoration:none;}
+.contact-social a:hover{background:var(--warm-dk);color:var(--ink);}
+.contact-social svg{width:17px;height:17px;fill:currentColor;}
+
+/* Right column — form */
+.contact-form-section h2{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;margin-bottom:10px;}
+.contact-form-section>p{font-size:17px;color:var(--ink2);line-height:1.75;margin-bottom:32px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-group{display:flex;flex-direction:column;}
+.form-group.full{grid-column:1/-1;}
+.form-group label{font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--ink2);margin-bottom:6px;}
+.form-group input,.form-group select,.form-group textarea{padding:12px 16px;font-size:15px;font-family:'Source Sans 3',sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:4px;background:#fff;outline:none;transition:border .2s;color:var(--ink);}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
+.form-group textarea{resize:vertical;min-height:120px;}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2357534E' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.form-submit{display:inline-block;padding:14px 40px;font-size:15px;font-weight:600;font-family:'Source Sans 3',sans-serif;background:var(--accent);color:#fff;border:none;border-radius:4px;cursor:pointer;transition:.2s;margin-top:8px;}
+.form-submit:hover{background:var(--accent-dk);}
+
+/* ── NEWSLETTER (inline bar) ── */
+.nl-section{padding:48px 52px;background:var(--warm);}
+.nl-bar{max-width:1100px;margin:0 auto;background:#fff;border-radius:12px;padding:28px 40px;display:flex;align-items:center;gap:32px;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+.nl-bar p{font-size:17px;color:var(--ink2);line-height:1.5;flex:1;margin:0;}
+.nl-bar p strong{color:var(--ink);font-weight:600;}
+.nl-form{display:flex;gap:10px;flex-shrink:0;}
+.nl-form input[type="email"]{padding:13px 18px;font-size:15px;font-family:'Source Sans 3',sans-serif;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--ink);outline:none;width:240px;transition:border .2s;}.nl-form input[type="email"]:focus{border-color:var(--accent);}
+.nl-form input[type="email"]::placeholder{color:var(--ink3);}
+.nl-form button{padding:13px 28px;font-size:15px;font-weight:600;font-family:'Source Sans 3',sans-serif;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;transition:.2s;white-space:nowrap;}.nl-form button:hover{background:var(--accent-dk);}
+
+footer{padding:52px;background:var(--ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:36px;}
+.fc{min-width:150px;}
+footer h4{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px;}
+footer a,footer p{font-size:14.5px;color:rgba(255,255,255,.5);text-decoration:none;display:block;margin-bottom:8px;line-height:1.5;}
+footer a:hover{color:#fff;}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:6px;}
+.foot-tag{font-size:12px;color:rgba(255,255,255,.25);line-height:1.6;}
+.social-links{display:flex;gap:14px;margin-top:14px;}
+.social-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:15px;transition:.2s;text-decoration:none;}
+.social-links a:hover{background:rgba(255,255,255,.15);color:#fff;}
+.social-links svg{width:16px;height:16px;fill:currentColor;}
+
+@media(max-width:900px){
+  nav{padding:14px 20px;}.nav-r{display:none;}.hamburger{display:flex;}
+  .contact{padding:120px 24px 64px;}.contact-grid{grid-template-columns:1fr;gap:48px;}
+  .form-row{grid-template-columns:1fr;}
+  .nl-section{padding:24px 16px;}.nl-bar{flex-direction:column;gap:16px;padding:24px;}.nl-form{width:100%;}.nl-form input[type="email"]{width:100%;flex:1;}
+  footer{padding:36px 20px;flex-direction:column;}
+}
+@media(max-width:560px){.topbar{font-size:11px;padding:8px 12px;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  Celebrating 20 years of faithful giving — 2006 to 2026 <a href="who-we-are.html">Read our story →</a>
+</div>
+
+<nav>
+  <a class="logo" href="index.html">Align International</a>
+  <div class="nav-r">
+    <a href="who-we-are.html">About</a>
+    <a href="sponsorship.html">Sponsorship</a>
+    <a href="life-homes.html">Life Homes</a>
+    <a href="education.html">Education</a>
+    <a href="events.html">Events</a>
+    <a href="blogs.html">News</a>
+    <a href="give.html" class="nav-cta">Donate</a>
+  </div>
+  <button class="hamburger" onclick="this.classList.toggle('open');document.getElementById('mob-menu').classList.toggle('open');" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mob-menu">
+  <a href="who-we-are.html" onclick="document.getElementById('mob-menu').classList.remove('open')">About</a>
+  <a href="sponsorship.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Sponsorship</a>
+  <a href="life-homes.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Life Homes</a>
+  <a href="education.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Education</a>
+  <a href="events.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Events</a>
+  <a href="blogs.html" onclick="document.getElementById('mob-menu').classList.remove('open')">News</a>
+  <a href="give.html" class="nav-cta" onclick="document.getElementById('mob-menu').classList.remove('open')">Donate</a>
+</div>
+
+<!-- ═══ CONTACT LAYOUT ═══ -->
+<section class="contact">
+  <div class="contact-grid">
+
+    <!-- LEFT — Info -->
+    <div class="contact-info">
+      <h1>Connect with Us</h1>
+
+      <div class="info-block">
+        <div class="info-label">Address</div>
+        <p>Align International<br>27525 Puerta Real, Suite 300 #426<br>Mission Viejo, CA 92691</p>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">Phone</div>
+        <p><a href="tel:9493719901">949-371-9901</a></p>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">Email</div>
+        <p><a href="mailto:info@aligninternational.net">info@aligninternational.net</a></p>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">Social</div>
+        <div class="contact-social">
+          <a href="https://www.instagram.com/aligninternational" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="https://www.facebook.com/aligninternationalusa" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://www.youtube.com/channel/UCI2vu2OdQ2yGPCZ0b46nFNQ" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          <a href="https://x.com/align_internat" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="https://www.tiktok.com/@donelahighschool" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.75a8.18 8.18 0 004.76 1.52V6.84a4.84 4.84 0 01-1-.15z"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — Form -->
+    <div class="contact-form-section">
+      <h2>Volunteer or Learn More</h2>
+      <p>We are always looking for new people to join our volunteer team! If you are interested in volunteering with Align or you just want to learn more about what we are doing in Uganda, fill out and submit the form below.</p>
+
+      <form>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first_name" required>
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last_name" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full">
+            <label for="purpose">What is your purpose for filling out the Contact Us Form?</label>
+            <select id="purpose" name="purpose">
+              <option value="">Select one...</option>
+              <option value="volunteer">I want to volunteer</option>
+              <option value="learn-more">I want to learn more</option>
+              <option value="sponsorship">Sponsorship question</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" maxlength="300">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER ═══ -->
+<section class="nl-section">
+  <div class="nl-bar">
+    <p><strong>Stay connected</strong> &mdash; stories from Uganda, upcoming events, and ways to get involved.</p>
+    <form class="nl-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓';this.querySelector('input').disabled=true;">
+      <input type="email" placeholder="Your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="fc">
+    <div class="foot-logo">Align International</div>
+    <div class="foot-tag">501(c)(3) · Tax ID 20-5491118<br><br>27525 Puerta Real, Suite 300 #426<br>Mission Viejo, CA 92691<br>949-371-9901</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/aligninternational" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.facebook.com/aligninternationalusa" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.youtube.com/channel/UCI2vu2OdQ2yGPCZ0b46nFNQ" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://x.com/alignintl" aria-label="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://www.tiktok.com/@aligninternational" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.77 1.52V6.82a4.84 4.84 0 01-1-.13z"/></svg></a>
+    </div>
+  </div>
+  <div class="fc"><h4>Donate</h4><a href="sponsorship.html#sponsor-a-child">Sponsor a Child</a><a href="projects.html">Projects</a><a href="give.html">Give</a></div>
+  <div class="fc"><h4>Programs</h4><a href="sponsorship.html">Sponsorship</a><a href="life-homes.html">Life Homes</a><a href="education.html#donela-schools">Donela Schools</a><a href="education.html#scholarship-program">Scholarship Program</a></div>
+  <div class="fc"><h4>About</h4><a href="who-we-are.html">Our Story</a><a href="who-we-are.html#our-partners">Our Partners</a><a href="contact.html">Contact</a><a href="blogs.html">News</a></div>
+  <div class="fc"><h4>Get Involved</h4><a href="events.html">Events</a><a href="blogs.html">Newsletter</a></div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>20);});
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>

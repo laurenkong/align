@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Give — Align International</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FDFCFA;--warm:#F5F0EB;--warm-dk:#EBE4DA;--ink:#1C1917;--ink2:#57534E;--ink3:#A8A29E;--accent:#B8533A;--accent-dk:#9A4430;--navy:#1E293B;--navy-lt:#334155;--forest:#3A5A40;--border:rgba(0,0,0,.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+.topbar{background:var(--navy);text-align:center;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.3px;position:fixed;top:0;left:0;right:0;z-index:101;}
+.topbar a{color:rgba(255,255,255,.9);font-weight:600;text-decoration:none;margin-left:4px;}.topbar a:hover{text-decoration:underline;color:#fff;}
+
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;background:rgba(253,252,250,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--navy);text-decoration:none;letter-spacing:-.4px;}
+.nav-r{display:flex;gap:28px;align-items:center;}
+.nav-r a{font-size:14px;font-weight:500;letter-spacing:.5px;color:var(--ink2);text-decoration:none;transition:.2s;}.nav-r a:hover{color:var(--ink);}
+.nav-r a.active{color:var(--ink);font-weight:600;}
+.nav-cta{background:var(--navy);color:#fff!important;padding:11px 26px;border-radius:4px;transition:background .2s;}.nav-cta:hover{background:var(--navy-lt)!important;}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:200;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:.3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(253,252,250,0.98);backdrop-filter:blur(20px);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--ink);text-decoration:none;font-weight:500;transition:.2s;}
+.mobile-menu a:hover{color:var(--accent);}
+.mobile-menu .nav-cta{font-family:'Source Sans 3',sans-serif;font-size:16px;margin-top:12px;padding:14px 40px;}
+
+.btn{display:inline-block;padding:15px 36px;font-size:15px;font-weight:600;text-decoration:none;border-radius:4px;transition:.2s;}
+.btn-accent{background:var(--accent);color:#fff;}.btn-accent:hover{background:var(--accent-dk);}
+.btn-white{background:#fff;color:var(--accent);}.btn-white:hover{background:var(--warm);}
+.fade-up{opacity:.92;transform:translateY(12px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1);}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ── GIVE HERO + WIDGET (shared image bg) ── */
+.give-hero-wrap{background:linear-gradient(rgba(28,25,23,.55),rgba(28,25,23,.65)),url("https://aligninternational.net/data/FileManager/thumbnails/Files/Projects/hero%20option_1613756832_1900x800_compression-7.jpg") 75% center/cover no-repeat;}
+.hero-centered{padding:160px 52px 96px;text-align:center;color:#fff;}
+.hero-centered .hero-eyebrow{font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#fff;margin-bottom:20px;opacity:.9;}
+.hero-centered h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4.5vw,56px);font-weight:400;line-height:1.18;letter-spacing:-.3px;margin-bottom:16px;color:#fff;}
+.hero-centered p{font-size:18px;color:rgba(255,255,255,.85);line-height:1.75;max-width:680px;margin:0 auto;}
+
+/* ── DONATION WIDGET ── */
+.donate-widget-section{padding:20px 52px 80px;}
+.donate-widget{max-width:520px;margin:0 auto;background:#fff;border-radius:14px;padding:40px 36px 36px;box-shadow:0 4px 24px rgba(0,0,0,.06);}
+.widget-tabs{display:flex;gap:0;margin-bottom:28px;background:var(--warm);border-radius:8px;padding:4px;}
+.widget-tab{flex:1;padding:11px 0;text-align:center;font-size:14px;font-weight:600;letter-spacing:.3px;border:none;background:none;border-radius:6px;cursor:pointer;color:var(--ink2);transition:.2s;font-family:'Source Sans 3',sans-serif;}
+.widget-tab.active{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.widget-label{font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--ink2);margin-bottom:12px;text-transform:uppercase;}
+.fund-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--ink);text-align:center;margin-bottom:24px;}
+.amount-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;}
+.amount-btn{padding:14px 0;text-align:center;font-size:16px;font-weight:600;font-family:'Source Sans 3',sans-serif;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer;transition:.2s;}
+.amount-btn:hover{border-color:var(--accent);color:var(--accent);}
+.amount-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.custom-amount{position:relative;margin-bottom:28px;}
+.custom-amount span{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:16px;font-weight:600;color:var(--ink3);}
+.custom-amount input{width:100%;padding:14px 16px 14px 28px;font-size:16px;font-family:'Source Sans 3',sans-serif;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--ink);outline:none;transition:border .2s;}
+.custom-amount input:focus{border-color:var(--accent);}
+.custom-amount input::placeholder{color:var(--ink3);font-weight:400;}
+.donate-submit{display:block;width:100%;padding:16px;font-size:16px;font-weight:700;font-family:'Source Sans 3',sans-serif;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;transition:.2s;letter-spacing:.3px;text-align:center;text-decoration:none;}
+.donate-submit:hover{background:var(--accent-dk);color:#fff;}
+.widget-footer{text-align:center;margin-top:16px;font-size:13px;color:var(--ink3);line-height:1.6;}
+.widget-footer a{color:var(--ink3);text-decoration:underline;transition:.2s;}
+.widget-footer a:hover{color:var(--ink2);}
+.check-note{text-align:center;margin-top:28px;font-size:14px;color:var(--ink3);}
+.check-note strong{color:var(--ink2);font-weight:600;}
+
+/* ── PROJECTS GRID ── */
+.projects-section{padding:80px 52px;background:var(--bg);}
+.projects-section h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;text-align:center;margin-bottom:16px;}
+.projects-intro{font-size:17px;color:var(--ink2);line-height:1.75;text-align:center;max-width:720px;margin:0 auto 48px;}
+.project-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:24px;}
+.project-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:box-shadow .3s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1);color:var(--ink);display:flex;flex-direction:column;}
+.project-card:hover{box-shadow:0 12px 32px rgba(0,0,0,.08);transform:translateY(-3px);}
+.project-card img{width:100%;height:220px;object-fit:cover;display:block;}
+.project-card-body{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1;}
+.project-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:8px;}
+.project-card p{font-size:15.5px;color:var(--ink2);line-height:1.7;margin-bottom:18px;}
+.card-donate{display:block;padding:12px 24px;font-size:14px;font-weight:700;font-family:'Source Sans 3',sans-serif;background:var(--accent);color:#fff;border-radius:6px;text-decoration:none;letter-spacing:.3px;transition:.2s;text-align:center;margin-top:auto;}
+.card-donate:hover{background:var(--accent-dk);color:#fff;}
+.card-learn{display:block;font-size:13px;color:var(--ink2);text-decoration:none;font-weight:500;margin-top:10px;text-align:center;transition:.2s;}
+.card-learn:hover{color:var(--accent);}
+
+/* ── NEWSLETTER (inline bar) ── */
+.nl-section{padding:48px 52px;background:var(--warm);}
+.nl-bar{max-width:1100px;margin:0 auto;background:#fff;border-radius:12px;padding:28px 40px;display:flex;align-items:center;gap:32px;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+.nl-bar p{font-size:17px;color:var(--ink2);line-height:1.5;flex:1;margin:0;}
+.nl-bar p strong{color:var(--ink);font-weight:600;}
+.nl-form{display:flex;gap:10px;flex-shrink:0;}
+.nl-form input[type="email"]{padding:13px 18px;font-size:15px;font-family:'Source Sans 3',sans-serif;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--ink);outline:none;width:240px;transition:border .2s;}.nl-form input[type="email"]:focus{border-color:var(--accent);}
+.nl-form input[type="email"]::placeholder{color:var(--ink3);}
+.nl-form button{padding:13px 28px;font-size:15px;font-weight:600;font-family:'Source Sans 3',sans-serif;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;transition:.2s;white-space:nowrap;}.nl-form button:hover{background:var(--accent-dk);}
+
+footer{padding:52px;background:var(--ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:36px;}
+.fc{min-width:150px;}
+footer h4{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px;}
+footer a,footer p{font-size:14.5px;color:rgba(255,255,255,.5);text-decoration:none;display:block;margin-bottom:8px;line-height:1.5;}
+footer a:hover{color:#fff;}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:6px;}
+.foot-tag{font-size:12px;color:rgba(255,255,255,.25);line-height:1.6;}
+.social-links{display:flex;gap:14px;margin-top:14px;}
+.social-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:15px;transition:.2s;text-decoration:none;}
+.social-links a:hover{background:rgba(255,255,255,.15);color:#fff;}
+.social-links svg{width:16px;height:16px;fill:currentColor;}
+
+@media(max-width:900px){
+  nav{padding:14px 20px;}.nav-r{display:none;}.hamburger{display:flex;}
+  .hero-centered{padding:120px 24px 64px;}
+  .donate-widget-section{padding:16px 16px 48px;}.donate-widget{padding:28px 20px 24px;}.amount-grid{grid-template-columns:repeat(2,1fr);}
+  .projects-section{padding:48px 24px;}.project-grid{grid-template-columns:1fr;grid-auto-rows:auto;}
+  .nl-section{padding:24px 16px;}.nl-bar{flex-direction:column;gap:16px;padding:24px;}.nl-form{width:100%;}.nl-form input[type="email"]{width:100%;flex:1;}
+  footer{padding:36px 20px;flex-direction:column;}
+}
+@media(max-width:560px){.topbar{font-size:11px;padding:8px 12px;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  Celebrating 20 years of faithful giving — 2006 to 2026 <a href="who-we-are.html">Read our story →</a>
+</div>
+
+<nav>
+  <a class="logo" href="index.html">Align International</a>
+  <div class="nav-r">
+    <a href="who-we-are.html">About</a>
+    <a href="sponsorship.html">Sponsorship</a>
+    <a href="life-homes.html">Life Homes</a>
+    <a href="education.html">Education</a>
+    <a href="events.html">Events</a>
+    <a href="blogs.html">News</a>
+    <a href="give.html" class="nav-cta active">Donate</a>
+  </div>
+  <button class="hamburger" onclick="this.classList.toggle('open');document.getElementById('mob-menu').classList.toggle('open');" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mob-menu">
+  <a href="who-we-are.html" onclick="document.getElementById('mob-menu').classList.remove('open')">About</a>
+  <a href="sponsorship.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Sponsorship</a>
+  <a href="life-homes.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Life Homes</a>
+  <a href="education.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Education</a>
+  <a href="events.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Events</a>
+  <a href="blogs.html" onclick="document.getElementById('mob-menu').classList.remove('open')">News</a>
+  <a href="give.html" class="nav-cta" onclick="document.getElementById('mob-menu').classList.remove('open')">Donate</a>
+</div>
+
+<!-- ═══ 1. HERO + DONATION WIDGET (shared bg) ═══ -->
+<div class="give-hero-wrap">
+<section class="hero-centered">
+  <div class="hero-eyebrow">Give</div>
+  <h1>Make a Difference Today</h1>
+  <p>Your generosity transforms lives. Every dollar goes toward providing food, clean water, shelter, healthcare, and education to children and families in Uganda.</p>
+</section>
+
+<section class="donate-widget-section">
+  <div class="donate-widget">
+
+    <h3 class="fund-title">General Fund</h3>
+
+    <div class="widget-tabs">
+      <button class="widget-tab active" onclick="setFrequency(this,'monthly')">Monthly</button>
+      <button class="widget-tab" onclick="setFrequency(this,'one-time')">One-Time</button>
+    </div>
+
+    <div class="widget-label">Select amount</div>
+    <div class="amount-grid">
+      <button class="amount-btn" onclick="pickAmount(this,25)">$25</button>
+      <button class="amount-btn active" onclick="pickAmount(this,50)">$50</button>
+      <button class="amount-btn" onclick="pickAmount(this,100)">$100</button>
+      <button class="amount-btn" onclick="pickAmount(this,250)">$250</button>
+    </div>
+    <div class="custom-amount">
+      <span>$</span>
+      <input type="text" inputmode="numeric" placeholder="Other amount" onfocus="clearAmountBtns()">
+    </div>
+
+    <a class="donate-submit" id="donate-btn" href="https://aligninternational.net/project/general-fund">Donate $50</a>
+
+    <div class="widget-footer">
+      Align International is a 501(c)(3) nonprofit. Tax ID 20-5491118.<br>
+      All donations are tax-deductible. <a href="https://aligninternational.net/donation-policy">Donation policy</a>
+    </div>
+
+    <div class="check-note">
+      Prefer to give by check? Mail to <strong>Align International</strong>, 27525 Puerta Real, Suite 300 #426, Mission Viejo, CA 92691
+    </div>
+
+  </div>
+</section>
+</div>
+
+<!-- ═══ 3. PROJECTS ═══ -->
+<section class="projects-section fade-up">
+  <h2>Or Choose a Project</h2>
+  <p class="projects-intro">Direct your gift to a specific project. Each one funds a tangible piece of the work in Uganda.</p>
+
+  <div class="project-grid">
+
+    <div class="project-card">
+      <img src="https://aligninternational.net/data/FileManager/thumbnails/Files/Projects/IMG_3774_1656108507_600x400.JPG" alt="Donela School Fund">
+      <div class="project-card-body">
+        <h3>Donela Schools</h3>
+        <p>Meet the most pressing needs of the Donela Schools in Uganda.</p>
+        <a class="card-donate" href="https://aligninternational.net/project/donela-school-fund">Donate</a>
+        <a class="card-learn" href="education.html#donela-schools">Learn More</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <img src="https://aligninternational.net/data/FileManager/thumbnails/Files/Projects/Christmas%20Party%202_1730232167_600x400.jpg" alt="Christmas in Uganda">
+      <div class="project-card-body">
+        <h3>Christmas in Uganda</h3>
+        <p>Bless those in our sponsorship program and the volunteers who invest in them this Christmas!</p>
+        <a class="card-donate" href="https://aligninternational.net/project/christmas-in-uganda">Donate</a>
+        <a class="card-learn" href="https://aligninternational.net/project/christmas-in-uganda">Learn More</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <img src="https://aligninternational.net/data/FileManager/thumbnails/Files/Projects/PXL_20210831_125706557.MP%20(1)_1649961591_600x400.jpg" alt="LWH Sponsorship">
+      <div class="project-card-body">
+        <h3>Child Sponsorship</h3>
+        <p>Bless children waiting for a sponsor with the essential needs of food, clean water, basic healthcare, and education.</p>
+        <a class="card-donate" href="https://aligninternational.net/project/lwh-sponsorship">Donate</a>
+        <a class="card-learn" href="sponsorship.html">Learn More</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <img src="https://aligninternational.net/data/FileManager/thumbnails/Files/Projects/BomboRoof_1732678218_600x400.jpg" alt="Bombo Church Construction">
+      <div class="project-card-body">
+        <h3>Bombo Church Construction</h3>
+        <p>Help fund the construction of the new Bombo Church building.</p>
+        <a class="card-donate" href="https://aligninternational.net/project/bombo-church-construction">Donate</a>
+        <a class="card-learn" href="https://aligninternational.net/project/bombo-church-construction">Learn More</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <img src="https://aligninternational.net/data/FileManager/thumbnails/Files/Projects/IMG_9689_1613102467_600x400.JPG" alt="Scholarships">
+      <div class="project-card-body">
+        <h3>Scholarships</h3>
+        <p>Provide for student tuition and supplies as they continue their education at a trade school or college.</p>
+        <a class="card-donate" href="https://aligninternational.net/project/scholarships">Donate</a>
+        <a class="card-learn" href="education.html#scholarship-program">Learn More</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <img src="https://aligninternational.net/data/FileManager/thumbnails/Files/Projects/IMG_1236_1613097738_600x400.JPG" alt="Life Home Village">
+      <div class="project-card-body">
+        <h3>Life Home Village</h3>
+        <p>Build a legacy by helping us operate and expand our Life Home Village &mdash; giving hope and housing to orphaned, abused, and abandoned children.</p>
+        <a class="card-donate" href="https://aligninternational.net/project/life-home-village">Donate</a>
+        <a class="card-learn" href="life-homes.html">Learn More</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <img src="https://aligninternational.net/Files/WOBULENZI%209.JPG" alt="Area of Greatest Need">
+      <div class="project-card-body">
+        <h3>Area of Greatest Need</h3>
+        <p>Trust Align leadership to prayerfully designate your gift where it's needed most.</p>
+        <a class="card-donate" href="https://aligninternational.net/project/area-of-greatest-need-1">Donate</a>
+        <a class="card-learn" href="https://aligninternational.net/project/area-of-greatest-need-1">Learn More</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER SIGNUP ═══ -->
+<section class="nl-section">
+  <div class="nl-bar">
+    <p><strong>Stay connected</strong> &mdash; stories from Uganda, upcoming events, and ways to get involved.</p>
+    <form class="nl-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓';this.querySelector('input').disabled=true;">
+      <input type="email" placeholder="Your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="fc">
+    <div class="foot-logo">Align International</div>
+    <div class="foot-tag">501(c)(3) · Tax ID 20-5491118<br><br>27525 Puerta Real, Suite 300 #426<br>Mission Viejo, CA 92691<br>949-371-9901</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/aligninternational" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.facebook.com/aligninternationalusa" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.youtube.com/channel/UCI2vu2OdQ2yGPCZ0b46nFNQ" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://x.com/alignintl" aria-label="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://www.tiktok.com/@aligninternational" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.77 1.52V6.82a4.84 4.84 0 01-1-.13z"/></svg></a>
+    </div>
+  </div>
+  <div class="fc"><h4>Donate</h4><a href="sponsorship.html#sponsor-a-child">Sponsor a Child</a><a href="projects.html">Projects</a><a href="give.html">Give</a></div>
+  <div class="fc"><h4>Programs</h4><a href="sponsorship.html">Sponsorship</a><a href="life-homes.html">Life Homes</a><a href="education.html#donela-schools">Donela Schools</a><a href="education.html#scholarship-program">Scholarship Program</a></div>
+  <div class="fc"><h4>About</h4><a href="who-we-are.html">Our Story</a><a href="who-we-are.html#our-partners">Our Partners</a><a href="contact.html">Contact</a><a href="blogs.html">News</a></div>
+  <div class="fc"><h4>Get Involved</h4><a href="events.html">Events</a><a href="blogs.html">Newsletter</a></div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>20);});
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+let currentAmount=50;
+let currentFreq='monthly';
+function setFrequency(btn,freq){
+  currentFreq=freq;
+  document.querySelectorAll('.widget-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  updateButton();
+}
+function pickAmount(btn,amt){
+  currentAmount=amt;
+  document.querySelectorAll('.amount-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelector('.custom-amount input').value='';
+  updateButton();
+}
+function clearAmountBtns(){
+  document.querySelectorAll('.amount-btn').forEach(b=>b.classList.remove('active'));
+}
+function updateButton(){
+  const label=currentFreq==='monthly'?'/month':'';
+  document.getElementById('donate-btn').textContent='Donate $'+currentAmount+label;
+}
+document.querySelector('.custom-amount input').addEventListener('input',function(){
+  const v=parseInt(this.value.replace(/[^0-9]/g,''));
+  if(v>0){currentAmount=v;updateButton();}
+});
+</script>
+
+</body>
+</html>

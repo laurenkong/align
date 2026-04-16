@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Align International — Fighting Poverty, Transforming Lives</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FDFCFA;--warm:#F5F0EB;--warm-dk:#EBE4DA;--ink:#1C1917;--ink2:#57534E;--ink3:#A8A29E;--accent:#B8533A;--accent-dk:#9A4430;--navy:#1E293B;--navy-lt:#334155;--forest:#3A5A40;--border:rgba(0,0,0,.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── ANNOUNCEMENT BAR ── */
+.topbar{background:var(--navy);text-align:center;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.3px;position:fixed;top:0;left:0;right:0;z-index:101;}
+.topbar a{color:rgba(255,255,255,.9);font-weight:600;text-decoration:none;margin-left:4px;}.topbar a:hover{text-decoration:underline;color:#fff;}
+
+/* ── NAV ── */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;background:rgba(253,252,250,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--navy);text-decoration:none;letter-spacing:-.4px;}
+.nav-r{display:flex;gap:28px;align-items:center;}
+.nav-r a{font-size:14px;font-weight:500;letter-spacing:.5px;color:var(--ink2);text-decoration:none;transition:.2s;}.nav-r a:hover{color:var(--ink);}
+.nav-cta{background:var(--navy);color:#fff!important;padding:11px 26px;border-radius:4px;transition:background .2s;}.nav-cta:hover{background:var(--navy-lt)!important;}
+
+/* hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:200;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:.3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(253,252,250,0.98);backdrop-filter:blur(20px);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--ink);text-decoration:none;font-weight:500;transition:.2s;}
+.mobile-menu a:hover{color:var(--accent);}
+.mobile-menu .nav-cta{font-family:'Source Sans 3',sans-serif;font-size:16px;margin-top:12px;padding:14px 40px;}
+
+/* ── SHARED ── */
+.btn{display:inline-block;padding:15px 36px;font-size:15px;font-weight:600;text-decoration:none;border-radius:4px;transition:.2s;}
+.btn-accent{background:var(--accent);color:#fff;}.btn-accent:hover{background:var(--accent-dk);}
+.btn-outline{border:1.5px solid var(--ink);color:var(--ink);margin-left:12px;}.btn-outline:hover{background:var(--ink);color:#fff;}
+.btn-white{background:#fff;color:var(--accent);}.btn-white:hover{background:var(--warm);}
+.section-label{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+
+/* fade-in on scroll */
+.fade-up{opacity:.92;transform:translateY(12px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1);}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ── 1. HERO ── */
+.hero{display:grid;grid-template-columns:1fr 1fr;height:calc(100vh - 200px);min-height:auto;padding-top:96px;}
+.hero-img{position:relative;overflow:hidden;background:var(--warm);}
+.hero-img img{width:100%;height:100%;object-fit:cover;object-position:0% 15%;display:block;}
+.hero-txt{display:flex;flex-direction:column;justify-content:center;padding:80px 80px;background:var(--warm);}
+.hero-eyebrow{font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:22px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4.2vw,56px);font-weight:400;line-height:1.18;margin-bottom:24px;letter-spacing:-.3px;}
+.hero p{font-size:19px;line-height:1.75;color:var(--ink2);margin-bottom:40px;max-width:80%;}
+
+/* ── 2. STATS ── */
+.anniversary{padding:36px 52px;background:var(--navy);text-align:center;}
+.anniversary-sub{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:rgba(255,255,255,.5);margin-bottom:32px;}
+.a-grid{display:flex;justify-content:center;gap:64px;flex-wrap:wrap;max-width:1000px;margin:0 auto;}
+.a-stat{max-width:200px;}
+.a-stat b{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:700;color:#fff;display:block;line-height:1;}
+.a-stat .a-label{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:8px;display:block;}
+.a-stat .a-desc{font-size:14px;color:rgba(255,255,255,.3);line-height:1.55;margin-top:6px;}
+
+/* ── 3. HOW WE TRANSFORM LIVES ── */
+.transforms{padding:80px 52px;background:var(--bg);}
+.transforms h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;text-align:center;margin-bottom:56px;}
+.transform-grid{max-width:1520px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:28px;}
+.transform-item{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .3s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1);width:calc(33.333% - 20px);}
+.transform-item:hover{box-shadow:0 12px 32px rgba(0,0,0,.08);transform:translateY(-3px);}
+.transform-item img{width:100%;height:320px;object-fit:cover;display:block;}
+.transform-item-body{padding:28px 30px 32px;}
+.transform-item h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:12px;}
+.transform-item p{font-size:16px;color:var(--ink2);line-height:1.7;margin-bottom:16px;}
+.t-link{font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;}.t-link:hover{text-decoration:underline;}
+
+/* ── SPLIT SECTIONS ── */
+.split{display:grid;grid-template-columns:2fr 3fr;min-height:auto;}
+.split.rev{grid-template-columns:1fr 1fr;}
+.split.rev .s-img{order:2;}
+.s-img{overflow:hidden;min-height:420px;}.s-img img{width:100%;height:100%;min-height:420px;object-fit:cover;display:block;object-position:center 35%;}
+.s-txt{display:flex;flex-direction:column;justify-content:center;padding:56px 72px;}
+.s-eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.s-txt h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;line-height:1.28;margin-bottom:18px;}
+.s-txt p{font-size:18px;line-height:1.8;color:var(--ink2);margin-bottom:12px;}
+.s-txt .aside{font-size:16px;font-style:italic;color:var(--ink3);margin-top:8px;}
+.s-link{display:inline-block;margin-top:20px;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--accent);text-decoration:none;}.s-link:hover{text-decoration:underline;}
+
+/* ── GODFREY ── */
+.story{padding:80px 52px;background:var(--warm);}
+.story h2{font-family:'Cormorant Garamond',serif;font-size:38px;text-align:center;margin-bottom:48px;}
+.story-row{display:grid;grid-template-columns:200px 1fr 200px;gap:32px;max-width:940px;margin:0 auto;align-items:center;}
+.story-photo{border-radius:8px;overflow:hidden;}
+.story-photo img{width:100%;height:260px;object-fit:cover;display:block;}
+.story-photo figcaption{font-size:13px;color:var(--ink3);text-align:center;padding:8px 0;font-style:italic;}
+.story-body p{font-size:18px;line-height:1.85;color:var(--ink2);margin-bottom:16px;}
+
+/* ── QUOTE ── */
+.quote-bar{padding:64px 52px;text-align:center;background:var(--navy);}
+.quote-bar blockquote{font-family:'Cormorant Garamond',serif;font-size:30px;font-style:italic;line-height:1.5;max-width:840px;margin:0 auto 14px;color:rgba(255,255,255,.88);}
+.quote-bar cite{font-family:'Source Sans 3',sans-serif;font-size:16px;font-style:normal;display:block;color:rgba(255,255,255,.5);}
+
+/* ── SPONSOR CTA ── */
+.sponsor-section{padding:50px 52px 56px;background:var(--warm);}
+.sponsor-inner{max-width:780px;margin:0 auto;}
+.sponsor-section h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;text-align:center;margin-bottom:16px;}
+.sponsor-intro{font-size:18px;color:var(--ink2);line-height:1.75;text-align:center;max-width:620px;margin:0 auto 44px;}
+.needs-row{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:44px;align-items:stretch;}
+.need-block{padding:40px 34px 32px;position:relative;border-radius:12px;border:1px solid var(--border);background:#fff;text-align:center;color:inherit;text-decoration:none;display:block;cursor:pointer;transition:box-shadow .3s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1),border-color .3s;box-shadow:0 2px 10px rgba(0,0,0,.04);}
+.need-block:hover{box-shadow:0 14px 36px rgba(0,0,0,.1);transform:translateY(-3px);border-color:rgba(0,0,0,.12);}
+.need-block.featured{box-shadow:0 4px 18px rgba(0,0,0,.07);}
+.need-block.featured:hover{box-shadow:0 18px 44px rgba(0,0,0,.12);}
+.needs-divider{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--ink3);padding:0 18px;font-style:italic;align-self:center;}
+.need-icon{display:flex;justify-content:center;align-items:center;gap:6px;margin-bottom:18px;color:var(--accent);opacity:.65;}
+.need-icon svg{width:26px;height:26px;}
+.need-icon .icon-sep{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--accent);font-weight:600;line-height:1;}
+.need-top{display:flex;align-items:baseline;gap:10px;margin-bottom:18px;justify-content:center;}
+.need-amount{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:var(--accent);line-height:.95;letter-spacing:-1px;}
+.need-per{font-size:15px;color:var(--ink2);font-weight:500;}
+.need-block h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:10px;text-align:center;color:var(--ink);}
+.need-block h3 em{font-style:italic;font-weight:700;color:var(--accent);font-size:24px;}
+.need-desc{font-size:14.5px;color:var(--ink3);line-height:1.6;margin-bottom:16px;text-align:left;}
+.need-list{list-style:none;padding:0;margin:0;text-align:left;}
+.need-list li{font-size:15px;color:var(--ink2);line-height:1.5;padding:5px 0 5px 20px;position:relative;}
+.need-list li::before{content:'·';position:absolute;left:4px;font-size:20px;line-height:1.2;color:var(--ink3);font-weight:700;}
+.need-list li em{font-style:italic;color:var(--ink3);}
+.sponsor-cta-area{text-align:center;}
+.btn-main{display:inline-block;padding:16px 44px;font-size:16px;font-weight:600;text-decoration:none;border-radius:4px;background:var(--accent);color:#fff;transition:.2s;}.btn-main:hover{background:var(--accent-dk);}
+.sponsor-sub-link{display:block;margin-top:12px;font-size:14px;color:var(--ink3);}
+.sponsor-sub-link a{color:var(--accent);font-weight:600;text-decoration:none;}.sponsor-sub-link a:hover{text-decoration:underline;}
+
+/* ── TRUST STRIP ── */
+.trust-strip{background:var(--warm-dk);padding:28px 52px;}
+.trust-inner{display:flex;justify-content:center;align-items:center;gap:44px;flex-wrap:wrap;}
+.ts-item{font-size:17px;color:var(--ink2);display:flex;align-items:center;gap:12px;}
+.ts-icon{width:26px;height:26px;border-radius:50%;background:var(--forest);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;flex-shrink:0;}
+.ts-item a{font-size:17px;font-weight:600;color:var(--accent);text-decoration:none;}.ts-item a:hover{text-decoration:underline;}
+
+/* ── NEWS + NEWSLETTER ── */
+.news{padding:56px 52px;background:var(--bg);}
+.news-header{display:flex;align-items:baseline;justify-content:space-between;max-width:960px;margin:0 auto 28px;}
+.news-header h2{font-family:'Cormorant Garamond',serif;font-size:34px;}
+.news-all{font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;}.news-all:hover{text-decoration:underline;}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto 36px;}
+.news-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:24px 24px 20px;transition:box-shadow .3s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1);color:inherit;text-decoration:none;display:block;cursor:pointer;}
+.news-card:hover{box-shadow:0 12px 32px rgba(0,0,0,.08);transform:translateY(-3px);}
+.news-card:hover h3{color:var(--accent);}
+.news-date{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.news-card h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;margin-bottom:6px;}
+.news-card h3 a{color:var(--ink);text-decoration:none;}.news-card h3 a:hover{color:var(--accent);}
+.news-byline{font-size:14px;color:var(--ink3);}
+.nl-bar{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 24px;}
+.nl-bar p{font-size:15px;color:var(--ink2);white-space:nowrap;margin-right:auto;}
+.nl-form{display:flex;gap:8px;}
+.nl-form input{padding:11px 16px;font-size:15px;font-family:'Source Sans 3',sans-serif;border:1px solid rgba(0,0,0,.12);border-radius:4px;background:var(--bg);outline:none;transition:border .2s;width:240px;}.nl-form input:focus{border-color:var(--accent);}
+.nl-form button{padding:11px 24px;font-size:15px;font-weight:600;font-family:'Source Sans 3',sans-serif;background:var(--accent);color:#fff;border:none;border-radius:4px;cursor:pointer;transition:.2s;white-space:nowrap;}.nl-form button:hover{background:var(--accent-dk);}
+
+/* ── LINKS ROW (team + events) ── */
+.links-row{display:flex;justify-content:center;gap:48px;padding:24px 52px;background:var(--warm-dk);flex-wrap:wrap;}
+.links-row a{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--ink);text-decoration:none;transition:.2s;display:flex;align-items:center;gap:8px;}
+.links-row a:hover{color:var(--accent);}
+.links-row a .arrow{font-family:'Source Sans 3',sans-serif;font-size:16px;color:var(--accent);transition:transform .2s;}
+.links-row a:hover .arrow{transform:translateX(3px);}
+
+/* ── CLOSE ── */
+.close{position:relative;padding:88px 52px;text-align:center;overflow:hidden;}
+.close-bg{position:absolute;inset:0;overflow:hidden;filter:brightness(.45);}
+.close-bg video{width:100%;height:100%;object-fit:cover;display:block;}
+.close-inner{position:relative;z-index:2;max-width:640px;margin:0 auto;}
+.close h2{font-family:'Cormorant Garamond',serif;font-size:40px;color:#fff;margin-bottom:16px;}
+.close p{font-size:18px;color:rgba(255,255,255,.7);margin-bottom:36px;line-height:1.7;}
+
+/* FOOTER */
+footer{padding:52px;background:var(--ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:36px;}
+.fc{min-width:150px;}
+footer h4{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px;}
+footer a,footer p{font-size:14.5px;color:rgba(255,255,255,.5);text-decoration:none;display:block;margin-bottom:8px;line-height:1.5;}
+footer a:hover{color:#fff;}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:6px;}
+.foot-tag{font-size:12px;color:rgba(255,255,255,.25);line-height:1.6;}
+.social-links{display:flex;gap:14px;margin-top:14px;}
+.social-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:15px;transition:.2s;text-decoration:none;}
+.social-links a:hover{background:rgba(255,255,255,.15);color:#fff;}
+.social-links svg{width:16px;height:16px;fill:currentColor;}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .nav-r{display:none;}
+  .hamburger{display:flex;}
+  .hero{grid-template-columns:1fr;}.hero-img{min-height:300px;}.hero-txt{padding:48px 28px;}
+  .a-grid{gap:32px;}
+  .transforms{padding:48px 24px;}.transform-item{width:100%;}
+  .split,.split.rev{grid-template-columns:1fr;}.split.rev .s-img{order:0;}.s-img{min-height:240px;}.s-txt{padding:40px 28px;}
+  .story{padding:48px 24px;}.story-row{grid-template-columns:1fr;}.story-photo img{height:240px;}
+  .sponsor-section{padding:48px 20px;}.needs-row{grid-template-columns:1fr;}.needs-divider{padding:8px 0;text-align:center;}.need-amount{font-size:52px;}
+  .news{padding:48px 24px;}.news-grid{grid-template-columns:1fr;}.nl-bar{flex-direction:column;align-items:stretch;}.nl-bar p{white-space:normal;margin-bottom:4px;}
+  .links-row{gap:28px;padding:36px 24px;}
+  .close{padding:56px 24px;}
+  footer{padding:36px 20px;flex-direction:column;}
+}
+@media(max-width:560px){.a-grid{flex-direction:column;gap:24px;}.nl-form{flex-direction:column;}.topbar{font-size:11px;padding:8px 12px;}.trust-inner{flex-direction:column;align-items:center;gap:10px;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  Celebrating 20 years of faithful giving — 2006 to 2026 <a href="who-we-are.html">Read our story →</a>
+</div>
+
+<nav>
+  <a class="logo" href="index.html">Align International</a>
+  <div class="nav-r">
+    <a href="who-we-are.html">About</a>
+    <a href="sponsorship.html">Sponsorship</a>
+    <a href="life-homes.html">Life Homes</a>
+    <a href="education.html">Education</a>
+    <a href="events.html">Events</a>
+    <a href="blogs.html">News</a>
+    <a href="give.html" class="nav-cta">Donate</a>
+  </div>
+  <button class="hamburger" onclick="this.classList.toggle('open');document.getElementById('mob-menu').classList.toggle('open');" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mob-menu">
+  <a href="who-we-are.html" onclick="document.getElementById('mob-menu').classList.remove('open')">About</a>
+  <a href="sponsorship.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Sponsorship</a>
+  <a href="life-homes.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Life Homes</a>
+  <a href="education.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Education</a>
+  <a href="events.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Events</a>
+  <a href="blogs.html" onclick="document.getElementById('mob-menu').classList.remove('open')">News</a>
+  <a href="give.html" class="nav-cta" onclick="document.getElementById('mob-menu').classList.remove('open')">Donate</a>
+</div>
+
+<!-- ═══ 1. HERO ═══ -->
+<section class="hero">
+  <div class="hero-img">
+    <img src="hero.png" alt="Children in Bombo, Uganda">
+  </div>
+  <div class="hero-txt">
+    <div class="hero-eyebrow">20 Years in Bombo, Uganda</div>
+    <h1>Fighting poverty and transforming lives for a better tomorrow</h1>
+    <p>We are a non-profit organization committed to helping marginalized people gain access to daily food, clean water, basic healthcare, shelter, and education.</p>
+    <div>
+      <a class="btn btn-accent" href="sponsorship.html">How You Can Help</a>
+      <a class="btn btn-outline" href="who-we-are.html">Our Story</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2. BY THE NUMBERS ═══ -->
+<section class="anniversary">
+  <div class="a-grid">
+    <div class="a-stat">
+      <b>300+</b>
+      <span class="a-label">Lives Transformed</span>
+      <span class="a-desc">through our Sponsorship Program</span>
+    </div>
+    <div class="a-stat">
+      <b>2,300+</b>
+      <span class="a-label">Students Educated</span>
+      <span class="a-desc">provided a quality education through Donela Schools</span>
+    </div>
+    <div class="a-stat">
+      <b>4</b>
+      <span class="a-label">School Campuses</span>
+      <span class="a-desc">serving children from preschool through twelfth grade</span>
+    </div>
+    <div class="a-stat">
+      <b>55</b>
+      <span class="a-label">Children Sheltered</span>
+      <span class="a-desc">abused or abandoned children sheltered with love since the launch of the Life Home Village</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3. HOW WE TRANSFORM LIVES ═══ -->
+<section class="transforms fade-up">
+  <h2>How We Transform Lives</h2>
+  <div class="transform-grid">
+    <div class="transform-item">
+      <img src="https://aligninternational.net/Files/Static/Home/Food%20and%20water.jpg" alt="Food and water">
+      <div class="transform-item-body">
+        <h3>Food &amp; Water</h3>
+        <p>We provide nutritious food and clean water to children on a daily basis. Children who receive sufficient food and water are happier, healthier, do better in school, and more likely to thrive as adults.</p>
+        <a class="t-link" href="sponsorship.html">Sponsor Today →</a>
+      </div>
+    </div>
+    <div class="transform-item">
+      <img src="https://aligninternational.net/Files/Static/Home/IMG_1148.JPG" alt="Shelter">
+      <div class="transform-item-body">
+        <h3>Shelter</h3>
+        <p>When children are in need of an alternative living situation due to abuse, neglect, or abandonment, we offer safe housing with loving caretakers to provide for their everyday physical and emotional needs.</p>
+        <a class="t-link" href="life-homes.html">Learn More →</a>
+      </div>
+    </div>
+    <div class="transform-item">
+      <img src="https://aligninternational.net/Files/Static/Donela%20Schools/IMG_1372.JPG" alt="Quality education">
+      <div class="transform-item-body">
+        <h3>Quality Education</h3>
+        <p>Children are enrolled in school where skilled teachers provide a quality education and engage students in creative ways. Each child's progress is monitored regularly to ensure consistent growth.</p>
+        <a class="t-link" href="education.html">Learn More →</a>
+      </div>
+    </div>
+    <div class="transform-item">
+      <img src="https://aligninternational.net/Files/Static/Home/IMG_9055.JPG" alt="Healthcare">
+      <div class="transform-item-body">
+        <h3>Healthcare</h3>
+        <p>We make sure each child receives essential medical and mental health care. Children have regular medical checkups as well as health and hygiene training to help develop healthy bodies and strong minds.</p>
+        <a class="t-link" href="sponsorship.html">Sponsor Today →</a>
+      </div>
+    </div>
+    <div class="transform-item">
+      <img src="https://aligninternational.net/Files/Static/Home/IMG_1277%20(2).JPG" alt="Spiritual care">
+      <div class="transform-item-body">
+        <h3>Spiritual Care</h3>
+        <p>Children learn spiritual truths and are mentored by Christ-centered leaders from our church partner in Uganda. Through guidance and the teaching of God's Word, children will experience who God is and how much He loves them.</p>
+        <a class="t-link" href="sponsorship.html">Sponsor Today →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST STRIP ═══ -->
+<section class="trust-strip fade-up">
+  <div class="trust-inner">
+    <div class="ts-item"><div class="ts-icon">✓</div>501(c)(3) tax-exempt since 2006</div>
+    <div class="ts-item"><div class="ts-icon">✓</div>100% volunteer-led leadership</div>
+    <div class="ts-item"><div class="ts-icon">✓</div>Local church-based partnership</div>
+    <div class="ts-item"><a href="https://aligninternational.net/2024%20Align%20990%20to%20post.pdf">View our 2024 Form 990 →</a></div>
+  </div>
+</section>
+
+<!-- ═══ 4. LIFE HOMES ═══ -->
+<section class="split rev fade-up">
+  <div class="s-img s-img-short"><img src="https://aligninternational.net/data/FileManager/thumbnails/Files/Projects/IMG_1236_1613097738_1900x800_compression-7.JPG" alt="Life Home Village"></div>
+  <div class="s-txt">
+    <div class="s-eyebrow">Life Homes</div>
+    <h2>Providing safe housing to children in need</h2>
+    <p>We make sure each child in our Sponsorship Program lives in a safe, secure, and loving home that will support their physical and spiritual growth. Any child needing an alternative living situation is offered full-time boarding at a school campus, placement with a loving foster family, or long-term care at our Life Home Village.</p>
+    <p class="aside">Housing up to 40 children across four homes, the Life Home Village is a refuge where children are cared for physically, emotionally, and spiritually — each home with a dedicated caretaker.</p>
+    <a class="s-link" href="life-homes.html">Learn more about Life Homes →</a>
+  </div>
+</section>
+
+<!-- ═══ 5. EDUCATION ═══ -->
+<section class="split fade-up">
+  <div class="s-img"><img src="https://aligninternational.net/unnamed%20(1).jpg" alt="Donela Schools"></div>
+  <div class="s-txt">
+    <div class="s-eyebrow">Donela Schools</div>
+    <h2>Quality education for a bright future</h2>
+    <p>The mission of Donela Schools is to provide Godly, quality and affordable education that will equip this generation to transform our community and nation. Currently the Schools serve nearly 1,200 children from preschool through twelfth grade at three locations in central Uganda.</p>
+    <p>We launched our first campus in partnership with Bombo Church in 2008 after discovering a lack of quality schools for our sponsored children to attend.</p>
+    <a class="s-link" href="education.html#donela-schools">Explore Donela Schools →</a>
+  </div>
+</section>
+
+<!-- ═══ SCRIPTURE ═══ -->
+<section class="quote-bar fade-up">
+  <blockquote>"Love the Lord your God with all your heart and with all your soul and with all your mind… the second is like it: Love your neighbor as yourself."</blockquote>
+  <cite>Matthew 22:37–39</cite>
+</section>
+
+<!-- ═══ 7. SPONSOR CTA ═══ -->
+<section class="sponsor-section fade-up">
+  <div class="sponsor-inner">
+    <h2>How Sponsorship Works</h2>
+    <p class="sponsor-intro">We partner with local churches in impoverished areas throughout Uganda to identify at-risk children. Some live in a safe, caring environment but their basic needs — food, clean water, healthcare, and school tuition — are not met. Others come from broken or abusive homes and require shelter with a loving caregiver.</p>
+
+    <div class="needs-row">
+      <a class="need-block" href="sponsorship.html#sponsor-a-child">
+        <div class="need-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M12 20v-8"/><path d="M12 12c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/><path d="M12 12c3.5 0 6-2.5 6-6-3.5 0-6 2.5-6 6z"/></svg><span class="icon-sep">/</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/></svg></div>
+        <div class="need-top">
+          <div class="need-amount">$45</div>
+          <div class="need-per">/ month</div>
+        </div>
+        <h3>Basic Needs <em>or</em> Shelter</h3>
+        <p class="need-desc">Provides a child with either the essentials they need to thrive — or a safe living situation with a loving caregiver.</p>
+        <ul class="need-list">
+          <li>Daily nutritious food &amp; clean water</li>
+          <li>Basic healthcare &amp; checkups</li>
+          <li>School tuition</li>
+          <li><em>or</em> safe housing with a caregiver</li>
+        </ul>
+      </a>
+      <div class="needs-divider">or</div>
+      <a class="need-block featured" href="sponsorship.html#sponsor-a-child">
+        <div class="need-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M12 20v-8"/><path d="M12 12c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/><path d="M12 12c3.5 0 6-2.5 6-6-3.5 0-6 2.5-6 6z"/></svg><span class="icon-sep">+</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/></svg></div>
+        <div class="need-top">
+          <div class="need-amount">$90</div>
+          <div class="need-per">/ month</div>
+        </div>
+        <h3>Basic Needs <em>and</em> Shelter</h3>
+        <p class="need-desc">Covers everything a child needs — essentials and a safe home — so nothing falls through the cracks.</p>
+        <ul class="need-list">
+          <li>Daily nutritious food &amp; clean water</li>
+          <li>Basic healthcare &amp; checkups</li>
+          <li>School tuition</li>
+          <li>Safe housing with a loving caregiver</li>
+          <li>Supervised care &amp; spiritual mentorship</li>
+        </ul>
+      </a>
+    </div>
+
+    <div class="sponsor-cta-area">
+      <a class="btn-main" href="sponsorship.html#sponsor-a-child">Sponsor a Child</a>
+      <div class="sponsor-sub-link"><a href="sponsorship.html">Learn more →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8. NEWS + NEWSLETTER ═══ -->
+<section class="news fade-up">
+  <div class="news-header">
+    <h2>News &amp; Updates</h2>
+    <a class="news-all" href="blogs.html">View all →</a>
+  </div>
+  <div class="news-grid">
+    <a class="news-card" href="https://aligninternational.net/blog/march-2026-newsletter">
+      <div class="news-date">March 28, 2026</div>
+      <h3>March 2026 Newsletter</h3>
+      <div class="news-byline">by Barbara Jackson</div>
+    </a>
+    <a class="news-card" href="https://aligninternational.net/blog/february-2026-newsletter">
+      <div class="news-date">February 28, 2026</div>
+      <h3>February 2026 Newsletter</h3>
+      <div class="news-byline">by Barbara Jackson</div>
+    </a>
+    <a class="news-card" href="https://aligninternational.net/blog/january-2026-newsletter">
+      <div class="news-date">January 31, 2026</div>
+      <h3>January 2026 Newsletter</h3>
+      <div class="news-byline">by Barbara Jackson</div>
+    </a>
+  </div>
+  <div class="nl-bar">
+    <p>Stay connected — get updates on the people you're helping support.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="Your email address">
+      <button type="button">Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LINKS ROW (team + events) ═══ -->
+<div class="links-row">
+  <a href="who-we-are.html">Meet our team &amp; partners <span class="arrow">→</span></a>
+  <a href="events.html">Upcoming events <span class="arrow">→</span></a>
+  <a href="education.html#scholarship-program">Scholarship program <span class="arrow">→</span></a>
+</div>
+
+<!-- ═══ 9. FINAL CTA ═══ -->
+<section class="close">
+  <div class="close-bg">
+    <video autoplay muted loop playsinline>
+      <source src="https://aligninternational.net/Files/Static/Video/Life%20Home%20Village%20(1).mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="close-inner">
+    <h2>How You Can Help</h2>
+    <p>Be a part of Align International's life-changing ministry. Together, we can help marginalized people gain access to the essentials needed for living life with dignity, one community at a time.</p>
+    <a class="btn btn-white" href="give.html">Donate</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fc">
+    <div class="foot-logo">Align International</div>
+    <div class="foot-tag">501(c)(3) · Tax ID 20-5491118<br><br>27525 Puerta Real, Suite 300 #426<br>Mission Viejo, CA 92691<br>949-371-9901</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/aligninternational" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.facebook.com/aligninternationalusa" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.youtube.com/channel/UCI2vu2OdQ2yGPCZ0b46nFNQ" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://x.com/alignintl" aria-label="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://www.tiktok.com/@aligninternational" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.77 1.52V6.82a4.84 4.84 0 01-1-.13z"/></svg></a>
+    </div>
+  </div>
+  <div class="fc"><h4>Donate</h4><a href="sponsorship.html#sponsor-a-child">Sponsor a Child</a><a href="projects.html">Projects</a><a href="give.html">Give</a></div>
+  <div class="fc"><h4>Programs</h4><a href="sponsorship.html">Sponsorship</a><a href="life-homes.html">Life Homes</a><a href="education.html#donela-schools">Donela Schools</a><a href="education.html#scholarship-program">Scholarship Program</a></div>
+  <div class="fc"><h4>About</h4><a href="who-we-are.html">Our Story</a><a href="who-we-are.html#our-partners">Our Partners</a><a href="contact.html">Contact</a><a href="blogs.html">News</a></div>
+  <div class="fc"><h4>Get Involved</h4><a href="events.html">Events</a><a href="blogs.html">Newsletter</a></div>
+</footer>
+
+<script>
+// Nav shadow on scroll
+window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>20);});
+
+// Fade-up on scroll
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>

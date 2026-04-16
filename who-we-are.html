@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who We Are — Align International</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FDFCFA;--warm:#F5F0EB;--warm-dk:#EBE4DA;--ink:#1C1917;--ink2:#57534E;--ink3:#A8A29E;--accent:#B8533A;--accent-dk:#9A4430;--navy:#1E293B;--navy-lt:#334155;--forest:#3A5A40;--border:rgba(0,0,0,.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── ANNOUNCEMENT BAR ── */
+.topbar{background:var(--navy);text-align:center;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.3px;position:fixed;top:0;left:0;right:0;z-index:101;}
+.topbar a{color:rgba(255,255,255,.9);font-weight:600;text-decoration:none;margin-left:4px;}.topbar a:hover{text-decoration:underline;color:#fff;}
+
+/* ── NAV ── */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;background:rgba(253,252,250,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--navy);text-decoration:none;letter-spacing:-.4px;}
+.nav-r{display:flex;gap:28px;align-items:center;}
+.nav-r a{font-size:14px;font-weight:500;letter-spacing:.5px;color:var(--ink2);text-decoration:none;transition:.2s;}.nav-r a:hover{color:var(--ink);}
+.nav-r a.active{color:var(--ink);font-weight:600;}
+.nav-cta{background:var(--navy);color:#fff!important;padding:11px 26px;border-radius:4px;transition:background .2s;}.nav-cta:hover{background:var(--navy-lt)!important;}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:200;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:.3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(253,252,250,0.98);backdrop-filter:blur(20px);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--ink);text-decoration:none;font-weight:500;transition:.2s;}
+.mobile-menu a:hover{color:var(--accent);}
+.mobile-menu .nav-cta{font-family:'Source Sans 3',sans-serif;font-size:16px;margin-top:12px;padding:14px 40px;}
+
+/* SHARED */
+.section-label{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+
+/* ── ANIMATION SYSTEM (subtle drift on scroll) ── */
+.drift{opacity:.92;transform:translateY(12px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1);}
+.drift.visible{opacity:1;transform:translateY(0);}
+
+/* ── HERO (split-grid: text left, collage right) ── */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:88vh;padding-top:96px;overflow:hidden;}
+.hero-txt{display:flex;flex-direction:column;justify-content:center;padding:64px 72px;background:var(--warm);}
+.hero-eyebrow{font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:22px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8vw,42px);font-weight:400;font-style:italic;line-height:1.32;letter-spacing:-.2px;color:var(--ink);}
+.hero-divider{width:48px;height:2px;background:var(--accent);margin-top:28px;}
+.hero-collage{background:var(--warm);display:flex;align-items:center;justify-content:center;padding:0;}
+.hero-collage img{width:100%;height:100%;object-fit:cover;display:block;border-radius:0;}
+
+/* ── STATS RIBBON (V2 — accent color) ── */
+.stats-ribbon{background:var(--accent);padding:28px 52px;display:flex;justify-content:center;gap:64px;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:600;color:#fff;line-height:1.1;}
+.stat-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:3px;}
+
+/* ── EDITORIAL STORY (V2 — 2-col, drop cap + photo collage) ── */
+.editorial{padding:80px 52px;background:var(--bg);}
+.editorial-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.ed-text .section-label{margin-bottom:14px;}
+.ed-text h2{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;margin-bottom:32px;line-height:1.2;}
+.ed-text p{font-size:17px;line-height:1.85;color:var(--ink2);margin-bottom:18px;}
+.ed-text p:first-of-type::first-letter{font-family:'Cormorant Garamond',serif;font-size:64px;float:left;line-height:.8;margin:6px 12px 0 0;color:var(--accent);font-weight:600;}
+.ed-photos{display:flex;}
+.ed-photos img{width:100%;border-radius:8px;object-fit:cover;object-position:center 40%;}
+
+
+/* ── LOCATION (V3 — side-by-side, rounded map, warm bg) ── */
+.location{padding:80px 52px;background:var(--warm);}
+.location-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.location-text .section-label{margin-bottom:14px;}
+.location-text h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;margin-bottom:20px;}
+.location-text p{font-size:17px;line-height:1.85;color:var(--ink2);}
+.location-map{border-radius:12px;overflow:hidden;}
+.location-map img{width:100%;display:block;}
+
+/* ── PARTNERS (V3 — featured layout, rounded photo) ── */
+.partners{padding:80px 52px;background:var(--bg);}
+.partners-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.partners-photo{border-radius:12px;overflow:hidden;max-width:520px;}
+.partners-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:45% top;display:block;}
+.partners-text .section-label{margin-bottom:10px;}
+.partners-text h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin-bottom:4px;}
+.partners-text .subtitle{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--ink3);margin-bottom:24px;}
+.partners-text p{font-size:17px;line-height:1.8;color:var(--ink2);margin-bottom:14px;}
+.partners-text .caption{font-size:14px;font-style:italic;color:var(--ink3);margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
+
+/* ── BOARD (V2 — full-width alternating rows) ── */
+.board{padding:80px 52px;background:var(--warm);}
+.board h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;text-align:center;margin-bottom:56px;}
+.board-grid{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:56px;}
+.board-card{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+.board-card:nth-child(even){direction:rtl;}.board-card:nth-child(even)>*{direction:ltr;}
+.board-avatar{border-radius:12px;overflow:hidden;}
+.board-avatar img{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center 30%;display:block;}
+.board-avatar .avatar-caption{font-size:13px;font-style:italic;color:var(--ink3);padding:18px 14px 4px;line-height:1.5;}
+.board-card-body h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin-bottom:4px;}
+.board-card-body .since{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+.board-card-body p{font-size:16px;color:var(--ink2);line-height:1.8;margin-bottom:12px;}
+.board-card-body .caption{font-size:14px;font-style:italic;color:var(--ink3);margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
+
+/* ── RESOURCES (all-visible columns) ── */
+.resources{padding:48px 52px 56px;background:var(--bg);}
+.resources h2{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;text-align:center;margin-bottom:32px;}
+.res-columns{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px 40px;}
+.res-group h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--accent);}
+.res-group a{display:block;font-size:15px;font-weight:500;color:var(--accent);text-decoration:none;padding:6px 0;transition:.2s;line-height:1.6;}
+.res-group a:hover{color:var(--accent-dk);text-decoration:underline;}
+
+/* ── NEWSLETTER (inline bar) ── */
+.nl-section{padding:48px 52px;background:var(--warm);}
+.nl-bar{max-width:1100px;margin:0 auto;background:#fff;border-radius:12px;padding:28px 40px;display:flex;align-items:center;gap:32px;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+.nl-bar p{font-size:17px;color:var(--ink2);line-height:1.5;flex:1;margin:0;}
+.nl-bar p strong{color:var(--ink);font-weight:600;}
+.nl-form{display:flex;gap:10px;flex-shrink:0;}
+.nl-form input[type="email"]{padding:13px 18px;font-size:15px;font-family:'Source Sans 3',sans-serif;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--ink);outline:none;width:240px;transition:border .2s;}.nl-form input[type="email"]:focus{border-color:var(--accent);}
+.nl-form input[type="email"]::placeholder{color:var(--ink3);}
+.nl-form button{padding:13px 28px;font-size:15px;font-weight:600;font-family:'Source Sans 3',sans-serif;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;transition:.2s;white-space:nowrap;}.nl-form button:hover{background:var(--accent-dk);}
+
+/* FOOTER */
+footer{padding:52px;background:var(--ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:36px;}
+.fc{min-width:150px;}
+footer h4{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px;}
+footer a,footer p{font-size:14.5px;color:rgba(255,255,255,.5);text-decoration:none;display:block;margin-bottom:8px;line-height:1.5;}
+footer a:hover{color:#fff;}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:6px;}
+.foot-tag{font-size:12px;color:rgba(255,255,255,.25);line-height:1.6;}
+.social-links{display:flex;gap:14px;margin-top:14px;}
+.social-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:15px;transition:.2s;text-decoration:none;}
+.social-links a:hover{background:rgba(255,255,255,.15);color:#fff;}
+.social-links svg{width:16px;height:16px;fill:currentColor;}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .nav-r{display:none;}
+  .hamburger{display:flex;}
+  .hero{grid-template-columns:1fr;min-height:auto;}.hero-txt{padding:48px 28px;}.hero-collage{min-height:320px;}
+  .stats-ribbon{padding:28px 24px;gap:28px;}.stat-num{font-size:36px;}
+  .editorial{padding:48px 24px;}.editorial-grid{grid-template-columns:1fr;gap:36px;}
+  .ed-text p:first-of-type::first-letter{font-size:48px;}
+  .scripture{padding:48px 24px;}
+  .location{padding:48px 24px;}.location-inner{grid-template-columns:1fr;gap:32px;}
+  .partners{padding:48px 24px;}.partners-inner{grid-template-columns:1fr;}
+  .board{padding:48px 24px;}.board-card{grid-template-columns:1fr!important;gap:24px;}.board-card:nth-child(even){direction:ltr;}
+  .resources{padding:48px 24px;}.tab-bar{gap:6px;}.tab-btn{padding:8px 16px;font-size:13px;}
+  .nl-section{padding:24px 16px;}.nl-bar{flex-direction:column;gap:16px;padding:24px;}.nl-form{width:100%;}.nl-form input[type="email"]{width:100%;flex:1;}
+  footer{padding:36px 20px;flex-direction:column;}
+}
+@media(max-width:560px){.topbar{font-size:11px;padding:8px 12px;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  Celebrating 20 years of faithful giving — 2006 to 2026 <a href="who-we-are.html">Read our story &rarr;</a>
+</div>
+
+<nav>
+  <a class="logo" href="index.html">Align International</a>
+  <div class="nav-r">
+    <a href="who-we-are.html" class="active">About</a>
+    <a href="sponsorship.html">Sponsorship</a>
+    <a href="life-homes.html">Life Homes</a>
+    <a href="education.html">Education</a>
+    <a href="events.html">Events</a>
+    <a href="blogs.html">News</a>
+    <a href="give.html" class="nav-cta">Donate</a>
+  </div>
+  <button class="hamburger" onclick="this.classList.toggle('open');document.getElementById('mob-menu').classList.toggle('open');" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mob-menu">
+  <a href="who-we-are.html">About</a>
+  <a href="sponsorship.html">Sponsorship</a>
+  <a href="life-homes.html">Life Homes</a>
+  <a href="education.html">Education</a>
+  <a href="events.html">Events</a>
+  <a href="blogs.html">News</a>
+  <a href="give.html" class="nav-cta">Donate</a>
+</div>
+
+<!-- ═══ 1. HERO (split-grid: text left, image right) ═══ -->
+<section class="hero" id="our-vision">
+  <div class="hero-txt">
+    <div class="hero-eyebrow">Our Vision</div>
+    <h1>Working to create a world where the poorest of the poor have access to daily essentials needed for living life with dignity, one community at a time.</h1>
+    <div class="hero-divider"></div>
+  </div>
+  <div class="hero-collage">
+    <img src="https://aligninternational.net/Files/Hero%20Image.jpg" alt="Align International hero">
+  </div>
+</section>
+
+<!-- ═══ 2. STATS RIBBON ═══ -->
+<section class="stats-ribbon">
+  <div class="stat"><div class="stat-num">20</div><div class="stat-label">Years of Service</div></div>
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Communities</div></div>
+  <div class="stat"><div class="stat-num">2,300+</div><div class="stat-label">Children Educated</div></div>
+  <div class="stat"><div class="stat-num">300+</div><div class="stat-label">Lives Transformed</div></div>
+  <div class="stat"><div class="stat-num">55</div><div class="stat-label">Children Sheltered</div></div>
+</section>
+
+<!-- ═══ 3. OUR STORY (V2 editorial: drop cap + photo collage) ═══ -->
+<section class="editorial" id="our-story">
+  <div class="editorial-grid">
+    <div class="ed-text drift">
+      <div class="section-label">Our Story</div>
+      <h2>Born From a Shared Vision</h2>
+      <p>While visiting the impoverished community of Bombo, Uganda in 2006, God aligned the hearts of four people who refused to turn a blind eye to the tragedy surrounding them. Through a shared vision to offer hope and promote change, Align International was born.</p>
+      <p>Overwhelmed by orphans and widows, Uganda is a country where the majority of its citizens are trapped in a cycle of poverty with limited to no resources to help them break free. With 70% of its population under the age of 25 and standing as the world's third poorest country, the road ahead is long. It is also full of hope.</p>
+      <p>Today, Align continues to bring people together across the world with one common goal: to make a difference in the lives of thousands of desperate children through basic necessities, spiritual support, and education.</p>
+    </div>
+    <div class="ed-photos drift">
+      <img src="https://aligninternational.net/Files/Static/About/IMG_4449.JPG" alt="Children in Bombo, Uganda">
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4. WHERE WE SERVE (V3 — rounded map, warm bg) ═══ -->
+<section class="location">
+  <div class="location-inner">
+    <div class="location-text drift">
+      <div class="section-label">Our Location</div>
+      <h2>Where We Serve</h2>
+      <p>Our Uganda partners work in various communities. Bombo is located one hour north via the Gulu Highway from the capital, Kampala, in the central region of Uganda. Bombo PAG Church has planted churches in the nearby surrounding communities of Wobulenzi, Kakooge, Luweero, and Kavule.</p>
+    </div>
+    <div class="location-map drift">
+      <img src="https://aligninternational.net/Files/where%20we%20serve.png" alt="Map of Uganda showing where Align serves">
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6. OUR PARTNERS (V3 — featured, rounded photo) ═══ -->
+<section class="partners" id="our-partners">
+  <div class="partners-inner">
+    <div class="partners-photo drift">
+      <img src="https://aligninternational.net/Files/Static/About/our_partners.jpg" alt="Alex and Millie Ojera with their family">
+    </div>
+    <div class="partners-text drift">
+      <div class="section-label">Our Partners</div>
+      <h3>Alex &amp; Millie Ojera</h3>
+      <div class="subtitle">Align Partners since 2006</div>
+      <p>Alex is a Bishop in the Pentecostal Assemblies of God serving mostly in Central Uganda. He is the lead Pastor at Bombo Church where he both teaches and mentors youth, raising up leaders to change the fabric of the local community.</p>
+      <p>Millie is the CEO of Life with Hope Ministries, where she oversees operations of the Child Sponsorship Program, Life Homes, Donela Schools, and Scholarship Programs. She also manages the Donela Schools and serves as the Worship Leader at Bombo Church.</p>
+      <div class="caption">Alex and Millie Ojera with their children, Jeremiah, Esther, and Isaac.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7. BOARD OF DIRECTORS ═══ -->
+<section class="board">
+  <h2>Our Board of Directors</h2>
+  <div class="board-grid">
+
+    <div class="board-card">
+      <div class="board-avatar">
+        <img src="https://aligninternational.net/Files/Static/About/HOME/Jackson%20family.JPG" alt="Joe and Barbara Jackson">
+        <div class="avatar-caption">Joe and Barbara with their children, Robby and Jenna, during a trip to Uganda.</div>
+      </div>
+      <div class="board-card-body">
+        <h3>Joe Jackson</h3>
+        <div class="since">Board Member since October 2015</div>
+        <p>Business &amp; Projects Manager and CFO/Treasurer of Align International. Joe is retired from TRW/Northrop Grumman Aerospace Systems where he served as a Director in the Engineering, Program Management, Supply Chain and Supplier Quality organizations. In addition to his Board role, Joe also serves on Align's Executive Management Team. He is married to his wonderful wife, Barbara, who is Align's Donor Development Manager and also serves on Align's Executive Management Team.</p>
+      </div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-avatar">
+        <img src="https://aligninternational.net/Files/Static/About/walls-bio-image.jpg" alt="Don and Cari Walls">
+        <div class="avatar-caption">Don and Cari with the girl they sponsored, Annet Nuwagaba, and her family.</div>
+      </div>
+      <div class="board-card-body">
+        <h3>Don &amp; Cari Walls</h3>
+        <div class="since">Board Members since October 2015</div>
+        <p>Don is retired from Saddleback Memorial Hospital in Laguna Hills, CA, where he worked for 44 years as an anesthesiologist. Don also serves as the Align Lead for child counseling in our sponsorship program.</p>
+        <p>Cari is the president and owner/operator of Cari Blake Design, an interior design company specializing in custom homes and businesses. Cari has been a member of every Gala Committee since 2014.</p>
+      </div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-avatar">
+        <img src="https://aligninternational.net/Files/Static/About/meadows-bio-image.jpg" alt="Brian and Stacey Meadows">
+        <div class="avatar-caption">Brian and Stacey with Luweero Church staff and Life With Hope children.</div>
+      </div>
+      <div class="board-card-body">
+        <h3>Brian &amp; Stacey Meadows</h3>
+        <div class="since">Brian: Feb 2021 &middot; Stacey: Jan 2025</div>
+        <p>Brian is a senior managing consultant for Simpler Consulting, an IBM company. As Chairman of the Board, Brian has been a constant in caring for the people of Uganda. His continuous giving towards building a better life for children and families has only given new life to many in need.</p>
+        <p>Stacey has been one of the organization's longest and most dedicated supporters alongside her husband, Brian. Together, they have traveled to Uganda numerous times, personally investing in the care and well-being of students. Stacey's deep commitment and hands-on involvement have played a vital role in Align's mission.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ 8. RESOURCES (all visible) ═══ -->
+<section class="resources">
+  <h2>Want to Learn More?</h2>
+  <div class="res-columns">
+
+    <div class="res-group">
+      <h3>Finances</h3>
+      <a href="https://aligninternational.net/2024%20Align%20990%20to%20post.pdf" target="_blank">2024 Form 990</a>
+      <a href="https://aligninternational.net/2023%20Align%20990%20Sched%20B%20redacted%20(1).pdf" target="_blank">2023 Form 990</a>
+      <a href="https://aligninternational.net/2022%20Align%20990%20Sched%20B%20redacted%20(1).pdf" target="_blank">2022 Form 990</a>
+    </div>
+
+    <div class="res-group">
+      <h3>Our Faith</h3>
+      <a href="https://aligninternational.net/VERSES%20THAT%20INSPIRED%20ALIGN%20MINISTRIES.pdf" target="_blank">Verses that Inspired Align</a>
+      <a href="https://aligninternational.net/Statement%20of%20Faith.pdf" target="_blank">Statement of Faith</a>
+    </div>
+
+    <div class="res-group">
+      <h3>Volunteer Roles</h3>
+      <a href="https://aligninternational.net/Align%20Business%20Case%20Volunteer.pdf" target="_blank">Business Case</a>
+      <a href="https://aligninternational.net/Align%20Financial%20Accountability%20Volunteer.pdf" target="_blank">Financial Accountability</a>
+      <a href="https://aligninternational.net/Align%20Project%20Management%20Volunteer.pdf" target="_blank">Project Manager</a>
+      <a href="https://aligninternational.net/Align%20Sponsorship%20Update%20Volunteer.pdf" target="_blank">Sponsorship Update</a>
+    </div>
+
+    <div class="res-group">
+      <h3>Videos &amp; Media</h3>
+      <a href="https://www.youtube.com/watch?v=S4rgCU4TDwU" target="_blank">History of Align Ministries</a>
+      <a href="https://www.youtube.com/watch?v=TsKLmbPgHCM" target="_blank">Thank You from Founders</a>
+      <a href="https://www.youtube.com/watch?v=IAgD7yzgb88" target="_blank">Thank You from Students</a>
+      <a href="https://www.youtube.com/watch?v=r7iQ_WVpGAQ" target="_blank">Zoo-phonics in Action</a>
+      <a href="https://www.youtube.com/watch?v=WYeEUxVFh_M" target="_blank">Christmas in Uganda</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ 9. NEWSLETTER ═══ -->
+<section class="nl-section">
+  <div class="nl-bar">
+    <p><strong>Stay connected</strong> &mdash; stories from Uganda, upcoming events, and ways to get involved.</p>
+    <form class="nl-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed \u2713';this.querySelector('input').disabled=true;">
+      <input type="email" placeholder="Your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="fc">
+    <div class="foot-logo">Align International</div>
+    <div class="foot-tag">501(c)(3) · Tax ID 20-5491118<br><br>27525 Puerta Real, Suite 300 #426<br>Mission Viejo, CA 92691<br>949-371-9901</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/aligninternational" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.facebook.com/aligninternationalusa" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.youtube.com/channel/UCI2vu2OdQ2yGPCZ0b46nFNQ" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://x.com/alignintl" aria-label="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://www.tiktok.com/@aligninternational" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.77 1.52V6.82a4.84 4.84 0 01-1-.13z"/></svg></a>
+    </div>
+  </div>
+  <div class="fc"><h4>Donate</h4><a href="sponsorship.html#sponsor-a-child">Sponsor a Child</a><a href="projects.html">Projects</a><a href="give.html">Give</a></div>
+  <div class="fc"><h4>Programs</h4><a href="sponsorship.html">Sponsorship</a><a href="life-homes.html">Life Homes</a><a href="education.html#donela-schools">Donela Schools</a><a href="education.html#scholarship-program">Scholarship Program</a></div>
+  <div class="fc"><h4>About</h4><a href="who-we-are.html">Our Story</a><a href="who-we-are.html#our-partners">Our Partners</a><a href="contact.html">Contact</a><a href="blogs.html">News</a></div>
+  <div class="fc"><h4>Get Involved</h4><a href="events.html">Events</a><a href="blogs.html">Newsletter</a></div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>20);});
+
+/* ── Subtle drift on scroll ── */
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.drift').forEach(el=>obs.observe(el));
+document.querySelectorAll('.board-card,.stat,.res-group,.nl-bar,.board h2,.resources h2').forEach(el=>{
+  el.classList.add('drift');
+  obs.observe(el);
+});
+</script>
+
+</body>
+</html>

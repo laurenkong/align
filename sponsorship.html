@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sponsorship Program — Align International</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FDFCFA;--warm:#F5F0EB;--warm-dk:#EBE4DA;--ink:#1C1917;--ink2:#57534E;--ink3:#A8A29E;--accent:#B8533A;--accent-dk:#9A4430;--navy:#1E293B;--navy-lt:#334155;--forest:#3A5A40;--border:rgba(0,0,0,.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── ANNOUNCEMENT BAR ── */
+.topbar{background:var(--navy);text-align:center;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.3px;position:fixed;top:0;left:0;right:0;z-index:101;}
+.topbar a{color:rgba(255,255,255,.9);font-weight:600;text-decoration:none;margin-left:4px;}.topbar a:hover{text-decoration:underline;color:#fff;}
+
+/* ── NAV ── */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;background:rgba(253,252,250,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--navy);text-decoration:none;letter-spacing:-.4px;}
+.nav-r{display:flex;gap:28px;align-items:center;}
+.nav-r a{font-size:14px;font-weight:500;letter-spacing:.5px;color:var(--ink2);text-decoration:none;transition:.2s;}.nav-r a:hover{color:var(--ink);}
+.nav-r a.active{color:var(--ink);font-weight:600;}
+.nav-cta{background:var(--navy);color:#fff!important;padding:11px 26px;border-radius:4px;transition:background .2s;}.nav-cta:hover{background:var(--navy-lt)!important;}
+
+/* hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:200;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:.3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(253,252,250,0.98);backdrop-filter:blur(20px);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--ink);text-decoration:none;font-weight:500;transition:.2s;}
+.mobile-menu a:hover{color:var(--accent);}
+.mobile-menu .nav-cta{font-family:'Source Sans 3',sans-serif;font-size:16px;margin-top:12px;padding:14px 40px;}
+
+/* ── SHARED ── */
+.btn{display:inline-block;padding:15px 36px;font-size:15px;font-weight:600;text-decoration:none;border-radius:4px;transition:.2s;}
+.btn-accent{background:var(--accent);color:#fff;}.btn-accent:hover{background:var(--accent-dk);}
+.btn-white{background:#fff;color:var(--accent);}.btn-white:hover{background:var(--warm);}
+.btn-main{display:inline-block;padding:16px 44px;font-size:16px;font-weight:600;text-decoration:none;border-radius:4px;background:var(--accent);color:#fff;transition:.2s;}.btn-main:hover{background:var(--accent-dk);}
+
+/* fade-in on scroll */
+.fade-up{opacity:.92;transform:translateY(12px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1);}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ── HERO (centered, matches Education) ── */
+.hero-bg{position:relative;overflow:hidden;background:var(--warm);}
+.hero-bg .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:opacity 1s ease;}
+.hero-bg::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(245,240,235,.82) 0%,rgba(245,240,235,.72) 35%,rgba(245,240,235,.48) 100%);z-index:1;pointer-events:none;}
+.hero-bg > *{position:relative;z-index:2;}
+.hero-centered{padding:160px 52px 64px;text-align:center;}
+.hero-centered .hero-eyebrow{font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
+.hero-centered h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4.5vw,56px);font-weight:400;line-height:1.18;letter-spacing:-.3px;margin-bottom:24px;}
+.hero-centered .subtitle{font-size:18px;color:var(--ink2);max-width:780px;margin:0 auto;line-height:1.8;}
+.hero-centered .subtitle strong{color:var(--ink);font-weight:600;}
+
+/* ── TEXT SECTION ── */
+.text-section{padding:80px 52px;background:var(--bg);}
+.text-section.warm{background:var(--warm);}
+.text-inner{max-width:820px;margin:0 auto;}
+.text-section h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;margin-bottom:28px;text-align:center;}
+.text-section p{font-size:18px;line-height:1.85;color:var(--ink2);margin-bottom:20px;text-align:center;}
+.text-section p strong{color:var(--ink);font-weight:600;}
+
+/* ── SPONSOR PRICING ── */
+.sponsor-section{padding:16px 52px 40px;background:transparent;}
+.sponsor-inner{max-width:820px;margin:0 auto;}
+.needs-row{display:grid;grid-template-columns:1fr auto 1fr;gap:0;margin-bottom:44px;align-items:stretch;}
+.need-block{padding:40px 34px 32px;position:relative;border-radius:12px;border:1px solid var(--border);background:#fff;text-align:center;color:inherit;text-decoration:none;display:block;cursor:pointer;transition:box-shadow .3s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1),border-color .3s;box-shadow:0 2px 10px rgba(0,0,0,.04);}
+.need-block:hover{box-shadow:0 14px 36px rgba(0,0,0,.1);transform:translateY(-3px);border-color:rgba(0,0,0,.12);}
+.need-block.featured{box-shadow:0 4px 18px rgba(0,0,0,.07);}
+.need-block.featured:hover{box-shadow:0 18px 44px rgba(0,0,0,.12);}
+.needs-divider{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--ink3);padding:0 18px;font-style:italic;align-self:center;}
+.need-icon{display:flex;justify-content:center;align-items:center;gap:6px;margin-bottom:18px;color:var(--accent);opacity:.65;}
+.need-icon svg{width:26px;height:26px;}
+.need-icon .icon-sep{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--accent);font-weight:600;line-height:1;}
+.need-top{display:flex;align-items:baseline;gap:10px;margin-bottom:18px;justify-content:center;}
+.need-amount{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;color:var(--accent);line-height:.95;letter-spacing:-1px;}
+.need-block.featured .need-amount{color:var(--accent);}
+.need-per{font-size:15px;color:var(--ink2);font-weight:500;}
+.need-block h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:10px;text-align:center;color:var(--ink);}
+.need-block h3 em{font-style:italic;font-weight:700;color:var(--accent);font-size:24px;}
+.need-desc{font-size:14.5px;color:var(--ink3);line-height:1.6;margin-bottom:16px;text-align:left;}
+.need-list{list-style:none;padding:0;margin:0;text-align:left;}
+.need-list li{font-size:15px;color:var(--ink2);line-height:1.5;padding:5px 0 5px 20px;position:relative;}
+.need-list li::before{content:'·';position:absolute;left:4px;font-size:20px;line-height:1.2;color:var(--ink3);font-weight:700;}
+.need-list li em{font-style:italic;color:var(--ink3);}
+.sponsor-cta-area{text-align:center;}
+
+/* ── CHILD CARD GALLERY ── */
+.gallery-section{padding:48px 52px 96px;background:var(--bg);scroll-margin-top:100px;}
+.gallery-inner{max-width:1240px;margin:0 auto;}
+.gallery-head{text-align:center;margin-bottom:40px;}
+.gallery-head .s-eyebrow{margin-bottom:12px;}
+.gallery-head h2{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:400;margin-bottom:14px;letter-spacing:-.3px;}
+.gallery-lede{font-size:17px;color:var(--ink2);line-height:1.7;max-width:580px;margin:0 auto 14px;}
+.gallery-count{font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);}
+.gallery-count span{color:var(--accent);}
+
+/* pill filter bar */
+.pill-bar{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:36px;position:relative;}
+.pill-group{display:flex;gap:6px;flex-wrap:wrap;}
+.pill-sep{display:inline-block;width:1px;height:20px;background:var(--warm-dk);margin:0 4px;}
+.pill{font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:600;letter-spacing:.3px;padding:9px 18px;border-radius:999px;background:transparent;border:1px solid var(--warm-dk);color:var(--ink2);cursor:pointer;transition:background .2s, color .2s, border-color .2s;}
+.pill:hover{border-color:var(--accent);color:var(--accent);}
+.pill.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+.pill.active:hover{background:var(--ink);color:#fff;}
+.pill-search{position:relative;display:flex;align-items:center;margin-left:6px;}
+.pill-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink3);pointer-events:none;display:flex;}
+.pill-search-icon svg{width:15px;height:15px;}
+.pill-search-input{width:200px;padding:9px 14px 9px 38px;font-family:'Source Sans 3',sans-serif;font-size:14px;border:1px solid var(--warm-dk);border-radius:999px;background:transparent;color:var(--ink);outline:none;transition:border-color .2s,background .2s,width .3s cubic-bezier(.22,.61,.36,1);}
+.pill-search-input::placeholder{color:var(--ink3);}
+.pill-search-input:focus{border-color:var(--accent);background:#fff;}
+.pill-search-input:focus~.pill-search-icon{color:var(--accent);}
+
+.child-empty{grid-column:1/-1;text-align:center;padding:64px 20px;color:var(--ink3);font-size:16px;}
+
+.child-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:48px;}
+.child-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .3s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1);}
+.child-card:hover{box-shadow:0 12px 32px rgba(0,0,0,.08);transform:translateY(-3px);}
+.child-photo{width:100%;aspect-ratio:4/5;overflow:hidden;background:var(--warm-dk);}
+.child-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,.61,.36,1);}
+.child-card:hover .child-photo img{transform:scale(1.04);}
+.child-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1;}
+.child-body h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:6px;letter-spacing:-.2px;}
+.child-meta{display:flex;gap:8px;font-size:13px;color:var(--ink3);font-weight:500;letter-spacing:.3px;margin-bottom:14px;}
+.child-body p{font-size:14.5px;color:var(--ink2);line-height:1.65;margin-bottom:20px;flex:1;}
+.child-cta{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:14px 20px;background:var(--accent);color:#fff;text-decoration:none;border-radius:8px;transition:background .2s, box-shadow .2s;margin-top:4px;}
+.child-cta:hover{background:var(--accent-dk);box-shadow:0 6px 20px rgba(184,83,58,.28);}
+.cta-name{font-size:16px;font-weight:700;letter-spacing:.2px;}
+.cta-price{font-size:13px;font-weight:500;opacity:.88;letter-spacing:.3px;}
+
+.gallery-pager{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:24px;}
+.pager-btn{font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:600;padding:10px 20px;background:#fff;border:1px solid var(--border);border-radius:6px;color:var(--ink2);cursor:pointer;transition:.2s;}
+.pager-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);}
+.pager-btn:disabled{opacity:.35;cursor:not-allowed;}
+.pager-pages{display:flex;gap:6px;}
+.pager-page{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;border-radius:6px;color:var(--ink2);cursor:pointer;transition:.2s;}
+.pager-page:hover{background:var(--warm);color:var(--ink);}
+.pager-page.active{background:var(--accent);color:#fff;}
+.gallery-view-all{text-align:center;margin-top:12px;}
+.gallery-view-all a{font-size:14.5px;font-weight:600;color:var(--accent);text-decoration:none;letter-spacing:.3px;}
+.gallery-view-all a:hover{text-decoration:underline;}
+
+/* ── SPLIT SECTIONS ── */
+.split{display:grid;grid-template-columns:2fr 3fr;min-height:auto;}
+.split.rev{grid-template-columns:3fr 2fr;}
+.split.rev .s-img{order:2;}
+.split.split-tall .s-img{min-height:520px;}
+.s-img{overflow:hidden;min-height:320px;}.s-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.s-txt{display:flex;flex-direction:column;justify-content:center;padding:56px 72px;background:var(--warm);}
+.s-eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.s-txt h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;line-height:1.28;margin-bottom:18px;letter-spacing:-.3px;}
+.s-txt p{font-size:18px;line-height:1.75;color:var(--ink2);margin-bottom:18px;}
+.s-list{list-style:none;padding:0;margin:8px 0 0;}
+.s-list li{font-size:16px;color:var(--ink);line-height:1.5;padding:8px 0 8px 28px;position:relative;border-top:1px solid rgba(0,0,0,.05);}
+.s-list li:first-child{border-top:none;}
+.s-list li::before{content:"";position:absolute;left:0;top:14px;width:14px;height:2px;background:var(--accent);}
+
+/* ── AFTER YOU SPONSOR DIVIDER ── */
+.after-divider{padding:80px 52px 56px;background:var(--warm);text-align:center;border-top:4px solid var(--accent);}
+.after-divider .s-eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.after-divider h2{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:400;margin-bottom:18px;letter-spacing:-.3px;}
+.after-divider p{font-size:18px;color:var(--ink2);line-height:1.75;max-width:680px;margin:0 auto;}
+
+/* ── VIDEO STORY ── */
+.video-story{padding:0 52px 40px;background:var(--warm);}
+.video-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:3fr 2fr;gap:56px;align-items:center;}
+.video-frame{position:relative;}
+.video-placeholder{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.video-thumb{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,.61,.36,1),opacity .3s;}
+.video-placeholder::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.35) 100%);transition:opacity .3s;}
+.video-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.96);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--accent);box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .3s cubic-bezier(.22,.61,.36,1),background .3s;z-index:2;}
+.video-play svg{width:32px;height:32px;margin-left:4px;}
+.video-placeholder:hover .video-play{transform:translate(-50%,-50%) scale(1.04);background:#fff;}
+.video-placeholder:hover .video-thumb{transform:scale(1.04);}
+.video-placeholder iframe{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;pointer-events:none;transition:opacity .3s;}
+.video-placeholder.playing iframe{opacity:1;pointer-events:auto;}
+.video-placeholder.playing .video-thumb,.video-placeholder.playing::after,.video-placeholder.playing .video-play{opacity:0;pointer-events:none;}
+.video-copy .s-eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.video-copy h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;line-height:1.25;margin-bottom:18px;letter-spacing:-.3px;}
+.video-copy p{font-size:17px;line-height:1.75;color:var(--ink2);}
+
+/* ── LETTERS SECTION ── */
+.letters-section{padding:80px 52px;background:var(--warm);}
+.letters-inner{max-width:1100px;margin:0 auto;}
+.letters-head{text-align:center;margin-bottom:48px;}
+.letters-head .s-eyebrow{margin-bottom:14px;}
+.letters-head h2{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:400;margin-bottom:18px;letter-spacing:-.3px;}
+.letters-head p{font-size:17px;line-height:1.75;color:var(--ink2);max-width:680px;margin:0 auto;}
+.letters-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:36px;}
+.letter-step{background:#fff;border:1px solid var(--border);border-radius:12px;padding:32px 28px;position:relative;transition:box-shadow .3s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1);}
+.letter-step:hover{box-shadow:0 12px 32px rgba(0,0,0,.08);transform:translateY(-3px);}
+.letter-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:14px;opacity:.85;letter-spacing:-1px;}
+.letter-step h4{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:10px;letter-spacing:-.2px;}
+.letter-step p{font-size:15.5px;color:var(--ink2);line-height:1.7;}
+.letter-step p strong{color:var(--ink);font-weight:600;}
+.letters-support{text-align:center;font-size:15px;color:var(--ink2);}
+.letters-support a{color:var(--accent);font-weight:600;text-decoration:none;}
+.letters-support a:hover{text-decoration:underline;}
+
+/* ── WHAT HAPPENS NEXT · PAIRED COLUMNS ── */
+.pair-section{padding:24px 52px 64px;background:var(--warm);}
+.pair-inner{max-width:1240px;margin:0 auto;}
+.pair-intro{text-align:center;margin-bottom:56px;}
+.pair-intro p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;font-weight:400;color:var(--ink2);max-width:640px;margin:0 auto;line-height:1.5;}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-bottom:44px;}
+.pair-col{background:#fff;border:1px solid var(--border);border-radius:14px;padding:48px 44px;box-shadow:0 2px 14px rgba(0,0,0,.04);}
+.pair-col h2{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;margin-bottom:14px;letter-spacing:-.3px;}
+.pair-col > p{font-size:16.5px;line-height:1.7;color:var(--ink2);margin-bottom:24px;}
+.pair-cards{display:flex;flex-direction:column;gap:0;}
+/* lighten the card treatment inside pair columns: no box, thin dividers */
+.pair-cards .letter-step{background:transparent;border:none;border-top:1px solid rgba(0,0,0,.08);border-radius:0;padding:22px 0;box-shadow:none;transition:none;}
+.pair-cards .letter-step:first-child{border-top:none;padding-top:4px;}
+.pair-cards .letter-step:hover{box-shadow:none;transform:none;}
+.pair-cards .letter-num{font-size:32px;margin-bottom:6px;opacity:.75;}
+.pair-cards .letter-step h4{font-size:20px;margin-bottom:6px;}
+.pair-cards .letter-step p{font-size:15.5px;}
+@media (max-width: 900px){
+  .pair-grid{grid-template-columns:1fr;gap:56px;}
+}
+
+/* ── FAQ ACCORDION ── */
+.faq-section{padding:80px 52px;background:var(--bg);}
+.faq-section h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;text-align:center;margin-bottom:48px;}
+.faq-list{max-width:820px;margin:0 auto;}
+.faq-item{border-bottom:1px solid rgba(0,0,0,.08);overflow:hidden;}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:22px 0;cursor:pointer;font-size:17px;font-weight:600;color:var(--ink);transition:color .2s;gap:16px;}
+.faq-q:hover{color:var(--accent);}
+.faq-q .faq-icon{font-size:22px;color:var(--accent);transition:transform .3s cubic-bezier(.22,.61,.36,1);flex-shrink:0;font-weight:300;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;}
+.faq-item.open .faq-a{max-height:600px;}
+.faq-a-inner{padding:0 0 24px;font-size:16.5px;line-height:1.8;color:var(--ink2);}
+.faq-a-inner p{margin-bottom:14px;}
+.faq-a-inner ul{margin:10px 0 14px 20px;}
+.faq-a-inner ul li{margin-bottom:8px;line-height:1.7;}
+.faq-a-inner a{color:var(--accent);font-weight:600;text-decoration:none;}.faq-a-inner a:hover{text-decoration:underline;}
+
+/* ── NEWSLETTER (inline bar) ── */
+.nl-section{padding:48px 52px;background:var(--warm);}
+.nl-bar{max-width:1100px;margin:0 auto;background:#fff;border-radius:12px;padding:28px 40px;display:flex;align-items:center;gap:32px;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+.nl-bar p{font-size:17px;color:var(--ink2);line-height:1.5;flex:1;margin:0;}
+.nl-bar p strong{color:var(--ink);font-weight:600;}
+.nl-form{display:flex;gap:10px;flex-shrink:0;}
+.nl-form input[type="email"]{padding:13px 18px;font-size:15px;font-family:'Source Sans 3',sans-serif;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--ink);outline:none;width:240px;transition:border .2s;}.nl-form input[type="email"]:focus{border-color:var(--accent);}
+.nl-form input[type="email"]::placeholder{color:var(--ink3);}
+.nl-form button{padding:13px 28px;font-size:15px;font-weight:600;font-family:'Source Sans 3',sans-serif;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;transition:.2s;white-space:nowrap;}.nl-form button:hover{background:var(--accent-dk);}
+
+/* ── DONATE CTA ── */
+.donate-cta{padding:80px 52px 20px;background:var(--warm);text-align:center;}
+.donate-cta h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;margin-bottom:16px;}
+.donate-cta p{font-size:18px;color:var(--ink2);line-height:1.75;max-width:620px;margin:0 auto 36px;}
+
+/* FOOTER */
+footer{padding:52px;background:var(--ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:36px;}
+.fc{min-width:150px;}
+footer h4{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px;}
+footer a,footer p{font-size:14.5px;color:rgba(255,255,255,.5);text-decoration:none;display:block;margin-bottom:8px;line-height:1.5;}
+footer a:hover{color:#fff;}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:6px;}
+.foot-tag{font-size:12px;color:rgba(255,255,255,.25);line-height:1.6;}
+.social-links{display:flex;gap:14px;margin-top:14px;}
+.social-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:15px;transition:.2s;text-decoration:none;}
+.social-links a:hover{background:rgba(255,255,255,.15);color:#fff;}
+.social-links svg{width:16px;height:16px;fill:currentColor;}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .nav-r{display:none;}
+  .hamburger{display:flex;}
+  .hero-centered{padding:120px 24px 64px;}
+  .hero-centered h1{margin-bottom:18px;}
+  .hero-centered .subtitle{font-size:16.5px;line-height:1.75;}
+  .split,.split.rev{grid-template-columns:1fr;}.split.rev .s-img{order:0;}.s-img{min-height:260px;}.split.split-tall .s-img{min-height:300px;}.s-txt{padding:40px 28px;}.s-txt h2{font-size:30px;}
+  .after-divider{padding:48px 24px 40px;}.after-divider h2{font-size:34px;}
+  .video-story{padding:0 20px 48px;}.video-inner{grid-template-columns:1fr;gap:28px;}.video-copy h3{font-size:26px;}
+  .letters-section{padding:48px 24px;}.letters-head h2{font-size:30px;}.letters-grid{grid-template-columns:1fr;gap:16px;}
+  .pair-section{padding:40px 24px 48px;}
+  .text-section{padding:48px 24px;}
+  .sponsor-section{padding:16px 20px 28px;}.needs-row{grid-template-columns:1fr;}.needs-divider{padding:8px 0;text-align:center;}
+  .need-amount{font-size:52px;}
+  .gallery-section{padding:32px 20px 64px;}
+  .gallery-head h2{font-size:32px;}
+  .pill-bar{gap:6px;justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding:4px 4px 10px;margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;scrollbar-width:none;}
+  .pill-bar::-webkit-scrollbar{display:none;}
+  .pill{white-space:nowrap;flex-shrink:0;}
+  .pill-group{flex-wrap:nowrap;flex-shrink:0;}
+  .pill-sep{flex-shrink:0;}
+  .pill-search{margin-left:2px;flex-shrink:0;}
+  .pill-search-input{width:170px;}
+  .child-grid{grid-template-columns:1fr;gap:20px;}
+  .faq-section{padding:48px 24px;}
+  .donate-cta{padding:48px 24px 12px;}
+  .nl-section{padding:24px 16px;}.nl-bar{flex-direction:column;gap:16px;padding:24px;}.nl-form{width:100%;}.nl-form input[type="email"]{width:100%;flex:1;}
+  footer{padding:36px 20px;flex-direction:column;}
+}
+@media(max-width:1100px) and (min-width:901px){.child-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.topbar{font-size:11px;padding:8px 12px;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  Celebrating 20 years of faithful giving — 2006 to 2026 <a href="who-we-are.html">Read our story →</a>
+</div>
+
+<nav>
+  <a class="logo" href="index.html">Align International</a>
+  <div class="nav-r">
+    <a href="who-we-are.html">About</a>
+    <a href="sponsorship.html" class="active">Sponsorship</a>
+    <a href="life-homes.html">Life Homes</a>
+    <a href="education.html">Education</a>
+    <a href="events.html">Events</a>
+    <a href="blogs.html">News</a>
+    <a href="give.html" class="nav-cta">Donate</a>
+  </div>
+  <button class="hamburger" onclick="this.classList.toggle('open');document.getElementById('mob-menu').classList.toggle('open');" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mob-menu">
+  <a href="who-we-are.html" onclick="document.getElementById('mob-menu').classList.remove('open')">About</a>
+  <a href="sponsorship.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Sponsorship</a>
+  <a href="life-homes.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Life Homes</a>
+  <a href="education.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Education</a>
+  <a href="events.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Events</a>
+  <a href="blogs.html" onclick="document.getElementById('mob-menu').classList.remove('open')">News</a>
+  <a href="give.html" class="nav-cta" onclick="document.getElementById('mob-menu').classList.remove('open')">Donate</a>
+</div>
+
+<!-- ═══ 1. HERO + PRICING CARDS (shared video background) ═══ -->
+<div class="hero-bg">
+  <video class="hero-video" id="hero-video" autoplay muted playsinline preload="auto"
+    onloadedmetadata="this.play()">
+    <source src="https://aligninternational.net/Files/Static/Video/190802_17a_HD_14.mp4" type="video/mp4">
+    <source src="https://aligninternational.net/Files/Static/Video/190802_17a_HD_14.ogv" type="video/ogg">
+    <source src="https://aligninternational.net/Files/Static/Video/190802_17a_HD_14.webm" type="video/webm">
+  </video>
+  <section class="hero-centered">
+    <div class="hero-eyebrow">Sponsorship</div>
+    <h1>Give Hope and a Future</h1>
+    <p class="subtitle">We partner with local churches in impoverished areas throughout Uganda to identify at-risk children. Some need <strong>basic needs</strong> like food, clean water, healthcare, and school tuition. Others need <strong>shelter</strong> &mdash; a safe new living situation with a loving caregiver.</p>
+  </section>
+
+  <!-- ═══ 3. PRICING CARDS ═══ -->
+  <section class="sponsor-section">
+  <div class="sponsor-inner">
+    <div class="needs-row">
+      <a class="need-block" href="#sponsor-a-child">
+        <div class="need-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M12 20v-8"/><path d="M12 12c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/><path d="M12 12c3.5 0 6-2.5 6-6-3.5 0-6 2.5-6 6z"/></svg><span class="icon-sep">/</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/></svg></div>
+        <div class="need-top">
+          <div class="need-amount">$45</div>
+          <div class="need-per">/ month</div>
+        </div>
+        <h3>Basic Needs <em>or</em> Shelter</h3>
+        <p class="need-desc">Provides a child with either the essentials they need to thrive — or a safe living situation with a loving caregiver.</p>
+        <ul class="need-list">
+          <li>Daily nutritious food &amp; clean water</li>
+          <li>Basic healthcare &amp; checkups</li>
+          <li>School tuition</li>
+          <li><em>or</em> safe housing with a caregiver</li>
+        </ul>
+      </a>
+      <div class="needs-divider">or</div>
+      <a class="need-block featured" href="#sponsor-a-child">
+        <div class="need-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M12 20v-8"/><path d="M12 12c-3.5 0-6-2.5-6-6 3.5 0 6 2.5 6 6z"/><path d="M12 12c3.5 0 6-2.5 6-6-3.5 0-6 2.5-6 6z"/></svg><span class="icon-sep">+</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22v-6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6"/></svg></div>
+        <div class="need-top">
+          <div class="need-amount">$90</div>
+          <div class="need-per">/ month</div>
+        </div>
+        <h3>Basic Needs <em>and</em> Shelter</h3>
+        <p class="need-desc">Covers everything a child needs — essentials and a safe home — so nothing falls through the cracks.</p>
+        <ul class="need-list">
+          <li>Daily nutritious food &amp; clean water</li>
+          <li>Basic healthcare &amp; checkups</li>
+          <li>School tuition</li>
+          <li>Safe housing with a loving caregiver</li>
+          <li>Supervised care &amp; spiritual mentorship</li>
+        </ul>
+      </a>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══ 4. SPONSOR A CHILD (child card gallery) ═══ -->
+<section class="gallery-section" id="sponsor-a-child">
+  <div class="gallery-inner">
+    <div class="gallery-head">
+      <div class="s-eyebrow">Meet the Children</div>
+      <h2>Sponsor a Child</h2>
+      <p class="gallery-lede">Every child here is waiting for a sponsor. Find one whose story moves you.</p>
+      <div class="gallery-count"><span id="count-num">6</span> profiles waiting</div>
+    </div>
+
+    <div class="pill-bar" id="pill-bar">
+      <div class="pill-group" data-filter-type="all">
+        <button class="pill active" data-filter="all">All</button>
+      </div>
+      <span class="pill-sep"></span>
+      <div class="pill-group" data-filter-type="age">
+        <button class="pill" data-filter="age:child">Children</button>
+        <button class="pill" data-filter="age:youth">Youth</button>
+        <button class="pill" data-filter="age:widow">Widows</button>
+      </div>
+      <span class="pill-sep"></span>
+      <div class="pill-group" data-filter-type="gender">
+        <button class="pill" data-filter="gender:male">Boys</button>
+        <button class="pill" data-filter="gender:female">Girls</button>
+      </div>
+      <div class="pill-search">
+        <input type="text" class="pill-search-input" id="search-input" placeholder="Search by name&hellip;">
+        <span class="pill-search-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="child-grid" id="child-grid">
+      <article class="child-card" data-gender="male" data-age="child" data-name="Elvis Luyima">
+        <div class="child-photo"><img src="https://aligninternational.net/data/FileManager/thumbnails/data/People/photos/991/IMG_20250520_WA0003_1748510832_400x500.jpg" alt="Elvis Luyima"></div>
+        <div class="child-body">
+          <h3>Elvis Luyima</h3>
+          <div class="child-meta"><span>Male</span><span>&middot;</span><span>DOB 09/13/2016</span></div>
+          <p>When Elvis was a baby, his single mother left to find work and he was left in the care of his grandmother. His grandmother can provide with a safe&hellip;</p>
+          <a class="child-cta" href="https://aligninternational.net/sponsor-a-child"><span class="cta-name">Sponsor Elvis</span><span class="cta-price">$45 / month</span></a>
+        </div>
+      </article>
+
+      <article class="child-card" data-gender="female" data-age="widow" data-name="Justine Namuddu">
+        <div class="child-photo"><img src="https://aligninternational.net/data/FileManager/thumbnails/data/People/photos/990/Justine_Namuddu_1734868553_400x500.jpg" alt="Justine Namuddu"></div>
+        <div class="child-body">
+          <h3>Justine Namuddu</h3>
+          <div class="child-meta"><span>Female</span><span>&middot;</span><span>DOB 01/01/1972</span></div>
+          <p>Justine is an HIV+ grandmother who is unable to work as her medication makes her body weak. She has never been to school and currently lives at&hellip;</p>
+          <a class="child-cta" href="https://aligninternational.net/sponsor-a-child"><span class="cta-name">Sponsor Justine</span><span class="cta-price">$45 / month</span></a>
+        </div>
+      </article>
+
+      <article class="child-card" data-gender="female" data-age="widow" data-name="Margret Nakato">
+        <div class="child-photo"><img src="https://aligninternational.net/data/FileManager/thumbnails/data/People/photos/983/IMG_20250604_WA0002_1750335713_400x500.jpg" alt="Margret Nakato"></div>
+        <div class="child-body">
+          <h3>Margret Nakato</h3>
+          <div class="child-meta"><span>Female</span><span>&middot;</span><span>DOB 01/01/1977</span></div>
+          <p>Margret is an HIV+ widowed mother of two children and currently lives at a relative's home. She stopped going to school after completing Primary 7&hellip;</p>
+          <a class="child-cta" href="https://aligninternational.net/sponsor-a-child"><span class="cta-name">Sponsor Margret</span><span class="cta-price">$45 / month</span></a>
+        </div>
+      </article>
+
+      <article class="child-card" data-gender="male" data-age="youth" data-name="Arthur Tendo Mbuusi">
+        <div class="child-photo"><img src="https://aligninternational.net/data/FileManager/thumbnails/data/People/photos/732/IMG_20260306_125758_577_1774343606_400x500.jpg" alt="Arthur Tendo Mbuusi"></div>
+        <div class="child-body">
+          <h3>Arthur Tendo Mbuusi</h3>
+          <div class="child-meta"><span>Male</span><span>&middot;</span><span>DOB 05/04/2006</span></div>
+          <p>Arthur used to live far from a low quality school so he struggled with attendance. With Align's help, he now no longer misses classes, and is&hellip;</p>
+          <a class="child-cta" href="https://aligninternational.net/sponsor-a-child"><span class="cta-name">Sponsor Arthur</span><span class="cta-price">$45 / month</span></a>
+        </div>
+      </article>
+
+      <article class="child-card" data-gender="male" data-age="youth" data-name="Moses Mugabi">
+        <div class="child-photo"><img src="https://aligninternational.net/data/FileManager/thumbnails/data/People/photos/892/IMG_20250811_124527_771_1757337502_400x500.jpg" alt="Moses Mugabi"></div>
+        <div class="child-body">
+          <h3>Moses Mugabi</h3>
+          <div class="child-meta"><span>Male</span><span>&middot;</span><span>DOB 11/09/2000</span></div>
+          <p>Moses lived with his HIV+ mother and three siblings in extreme poverty. His father passed away several years ago, and his mother passed away in&hellip;</p>
+          <a class="child-cta" href="https://aligninternational.net/sponsor-a-child"><span class="cta-name">Sponsor Moses</span><span class="cta-price">$45 / month</span></a>
+        </div>
+      </article>
+
+      <article class="child-card" data-gender="male" data-age="youth" data-name="Joshua Mboowa">
+        <div class="child-photo"><img src="https://aligninternational.net/data/FileManager/thumbnails/data/People/photos/842/IMG_20250617_144516_648_1750413216_400x500.jpg" alt="Joshua Mboowa"></div>
+        <div class="child-body">
+          <h3>Joshua Mboowa</h3>
+          <div class="child-meta"><span>Male</span><span>&middot;</span><span>DOB 09/09/2007</span></div>
+          <p>Joshua suffered from the loss of his father as a child, and was supported by his grandmother while his mother worked. He initially struggled in&hellip;</p>
+          <a class="child-cta" href="https://aligninternational.net/sponsor-a-child"><span class="cta-name">Sponsor Joshua</span><span class="cta-price">$45 / month</span></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="gallery-pager">
+      <button class="pager-btn" disabled>&larr; Prev</button>
+      <div class="pager-pages">
+        <span class="pager-page active">1</span>
+        <span class="pager-page">2</span>
+        <span class="pager-page">3</span>
+      </div>
+      <button class="pager-btn">Next &rarr;</button>
+    </div>
+
+    <div class="gallery-view-all">
+      <a href="https://aligninternational.net/sponsor-a-child">View all children &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5. SECTION DIVIDER: AFTER YOU SPONSOR ═══ -->
+<section class="after-divider">
+  <div class="s-eyebrow">After You Sponsor</div>
+  <h2>What happens next</h2>
+  <p>Sponsorship is more than a monthly gift. It's the beginning of a relationship &mdash; with a child, a family, and a community walking out of poverty together.</p>
+</section>
+
+<!-- ═══ 6. VIDEO STORY ═══ -->
+<section class="video-story">
+  <div class="video-inner">
+    <div class="video-frame">
+      <div class="video-placeholder" onclick="this.classList.add('playing');this.querySelector('iframe').src=this.querySelector('iframe').dataset.src;">
+        <img src="https://aligninternational.net/Files/Static/Home/IMG_9055.JPG" alt="A day in the life of sponsored children" class="video-thumb">
+        <button class="video-play" aria-label="Play video">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <iframe data-src="https://player.vimeo.com/video/84815923?autoplay=1" src="" title="A day in the life" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="video-copy">
+      <div class="s-eyebrow">A Day in the Life</div>
+      <h3>One family. A whole new life.</h3>
+      <p>See a day in the life of a family of four children under the care of the two oldest siblings &mdash; who became parents when they lost their mother and were abandoned by their father. With support from donors, these children have found an opportunity for a whole new life.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7. CARE BEGINS · A RELATIONSHIP BEGINS ═══ -->
+<section class="pair-section">
+  <div class="pair-inner">
+    <div class="pair-intro">
+      <p>When you sponsor, both begin at once &mdash; and keep going, together.</p>
+    </div>
+    <div class="pair-grid">
+
+      <div class="pair-col">
+        <h2>Care begins.</h2>
+        <p>Once you sponsor, our partner church steps in to provide for your child's physical, medical, emotional, and spiritual needs.</p>
+        <div class="pair-cards">
+          <div class="letter-step">
+            <div class="letter-num">01</div>
+            <h4>Daily essentials</h4>
+            <p>Food, clean water, and healthcare &mdash; every day.</p>
+          </div>
+          <div class="letter-step">
+            <div class="letter-num">02</div>
+            <h4>School enrollment</h4>
+            <p>A place at a quality, Christ-centered school, with books and fees covered.</p>
+          </div>
+          <div class="letter-step">
+            <div class="letter-num">03</div>
+            <h4>Local mentorship</h4>
+            <p>Guidance and care from local church leaders who know them by name.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pair-col">
+        <h2>A relationship begins.</h2>
+        <p>Through your Sponsor Dashboard, you stay connected to the child you chose &mdash; with letters, photos, and updates on their story.</p>
+        <div class="pair-cards">
+          <div class="letter-step">
+            <div class="letter-num">01</div>
+            <h4>Letters</h4>
+            <p>Write personal notes through your Sponsor Dashboard whenever you like.</p>
+          </div>
+          <div class="letter-step">
+            <div class="letter-num">02</div>
+            <h4>Photos</h4>
+            <p>Share pictures of yourself or your family &mdash; small windows into your world.</p>
+          </div>
+          <div class="letter-step">
+            <div class="letter-num">03</div>
+            <h4>Annual updates</h4>
+            <p>Receive a detailed update on your child's health, schooling, and growth each year.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="letters-support">Need help? Reach out to Summer at <a href="mailto:summer@aligninternational.net">summer@aligninternational.net</a>.</p>
+  </div>
+</section>
+
+<!-- ═══ 9. FAQs ═══ -->
+<section class="faq-section fade-up" id="faq">
+  <h2>FAQs</h2>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        Why do some children need sponsorship for basic needs and shelter?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>All children in our Sponsorship Program require sponsorship for <strong>Basic Needs</strong>. Some children who are a part of our program need an alternative living situation with a loving caregiver to watch over them. Children typically qualify for sponsorship providing <strong>SHELTER</strong> for one of the following reasons:</p>
+        <ul>
+          <li>A child resides in an area without access to a quality school and/or lives in a home environment not conducive to academic, emotional or spiritual growth. Sponsorship covering <strong>SHELTER</strong> provides these children with supervised student housing during the school year.</li>
+          <li>A child has been abandoned, orphaned, or is experiencing severe abuse. Sponsorship covering <strong>SHELTER</strong> provides these children year-round housing with a trusted caregiver.</li>
+        </ul>
+        <p>Through our partnership with Bombo Pentecostal Church, we strive to ensure every child is placed in a loving home and guided by teachers and spiritual leaders who will equip them with the tools they need to thrive.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        What additional care do children with sponsorship covering shelter receive?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>Children who qualify for sponsorship covering <strong>SHELTER</strong> are placed in an alternative living situation in one of the following forms:</p>
+        <ul>
+          <li>Long-term board and care at a school campus during the school year</li>
+          <li>Full-time housing at our Life Home Village, a year-round home which provides a surrogate family for children who have been abandoned, orphaned, or rescued from severe abuse</li>
+          <li>Foster care with a loving church family</li>
+        </ul>
+        <p>All living situations include supervised care, evening and weekend meals (as well as meals provided at the school through their first sponsorship), clean water, utilities, and any transportation.</p>
+        <p>Because costs vary for each living situation, we have established an average level of support for each child, rather than multiple or sliding support levels that could change year to year. Surplus funds from children in lower cost housing is used to supplement sponsorship funding for children in higher cost housing.</p>
+        <p>Regardless of a child's living situation, Align will ensure that each child with sponsorship for <strong>SHELTER</strong> receives the housing, supervision, food, clean water, utilities, and transportation he or she needs in order to foster an environment that supports academic, emotional, and spiritual growth.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        How often will I receive updates on my sponsored child?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>You are able to view annual updates and write a message to your sponsored child by logging into the Sponsor Dashboard. If you do not already have a Dashboard account, you will be given access to the Dashboard once you complete the sponsorship of a child.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        How do I provide my sponsored child with a special gift for Christmas?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>Each year we collect donations through our <strong>Christmas in Uganda</strong> campaign. Support raised is pooled together and used to bless all the children and single mothers in our Sponsorship Program with special gifts and festivities for the holiday. More information about <strong>Christmas in Uganda</strong> will be sent out starting in September. Please contact us at <a href="mailto:info@aligninternational.net">info@aligninternational.net</a> if you would like to receive information about our <strong>Christmas in Uganda</strong> campaign this year.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        How long does sponsorship last?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>We serve the poorest of the poor and school tuition is unaffordable for the parent(s) of children in our program. Because of this, nearly all children in our Sponsorship Program are behind academically. We ask our sponsors to commit to supporting children through college or trade school, regardless of the child's age. We understand, however, that unforeseen hardships may arise. If for any reason you are unable to continue supporting your child or single mother, please contact <a href="mailto:info@aligninternational.net">info@aligninternational.net</a>.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        How do I help my sponsored child pursue education beyond high school?
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>Maintaining sponsorship through college or trade school is the best way to support your sponsored child academically and will cover most costs associated with higher learning. If you would like to assist with unmet costs for higher levels of schooling, you can make a separate donation to our Scholarship Program. The Scholarship Program provides students who have given consistent effort in school, been active in the community, and proven to be individuals of character with scholarships toward college or a trade school. Godly men and women are given the life changing opportunity to further their education as they are empowered to impact their community for generations to come. We also provide opportunities for adults seeking training in a specific trade or training program. Please visit our <a href="education.html#scholarship-program">Scholarship Program</a> page to learn more.</p>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ 8. CTA ═══ -->
+<section class="donate-cta fade-up">
+  <h2>Change a Child's Story</h2>
+  <p>For just a few dollars a day, you can give a child in Uganda daily food, clean water, education, and the love of a family praying for them. Together, we can rewrite what's possible for a generation.</p>
+  <a class="btn-main" href="#sponsor-a-child">Sponsor a Child</a>
+  <p style="margin-top:24px;"><a href="give.html" style="font-size:15px;color:var(--ink2);text-decoration:none;font-weight:500;transition:.2s;">Explore All Ways to Give <span style="margin-left:2px;">&rarr;</span></a></p>
+</section>
+
+<!-- ═══ NEWSLETTER SIGNUP ═══ -->
+<section class="nl-section">
+  <div class="nl-bar">
+    <p><strong>Stay connected</strong> &mdash; stories from Uganda, upcoming events, and ways to get involved.</p>
+    <form class="nl-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓';this.querySelector('input').disabled=true;">
+      <input type="email" placeholder="Your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="fc">
+    <div class="foot-logo">Align International</div>
+    <div class="foot-tag">501(c)(3) · Tax ID 20-5491118<br><br>27525 Puerta Real, Suite 300 #426<br>Mission Viejo, CA 92691<br>949-371-9901</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/aligninternational" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.facebook.com/aligninternationalusa" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.youtube.com/channel/UCI2vu2OdQ2yGPCZ0b46nFNQ" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://x.com/alignintl" aria-label="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://www.tiktok.com/@aligninternational" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.77 1.52V6.82a4.84 4.84 0 01-1-.13z"/></svg></a>
+    </div>
+  </div>
+  <div class="fc"><h4>Donate</h4><a href="sponsorship.html#sponsor-a-child">Sponsor a Child</a><a href="projects.html">Projects</a><a href="give.html">Give</a></div>
+  <div class="fc"><h4>Programs</h4><a href="sponsorship.html">Sponsorship</a><a href="life-homes.html">Life Homes</a><a href="education.html#donela-schools">Donela Schools</a><a href="education.html#scholarship-program">Scholarship Program</a></div>
+  <div class="fc"><h4>About</h4><a href="who-we-are.html">Our Story</a><a href="who-we-are.html#our-partners">Our Partners</a><a href="contact.html">Contact</a><a href="blogs.html">News</a></div>
+  <div class="fc"><h4>Get Involved</h4><a href="events.html">Events</a><a href="blogs.html">Newsletter</a></div>
+</footer>
+
+<script>
+// Hero video — cut last 7s and crossfade between loops
+(function(){
+  const hv=document.getElementById('hero-video');
+  if(!hv)return;
+  const TAIL=7,SPEED=0.9,FADE=1;
+  let fading=false,done=false;
+  hv.playbackRate=SPEED;
+  hv.addEventListener('loadedmetadata',()=>{hv.playbackRate=SPEED;});
+  hv.addEventListener('timeupdate',()=>{
+    if(!hv.duration||isNaN(hv.duration)||done)return;
+    const end=hv.duration-TAIL;
+    if(!fading&&hv.currentTime>=end-FADE){hv.style.opacity='0';fading=true;}
+    if(hv.currentTime>=end){hv.pause();done=true;}
+  });
+})();
+
+// Nav shadow on scroll
+window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>20);});
+
+// Fade-up on scroll
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// Child gallery filters
+(function(){
+  const pillBar=document.getElementById('pill-bar');
+  const grid=document.getElementById('child-grid');
+  const countEl=document.getElementById('count-num');
+  const searchInput=document.getElementById('search-input');
+  if(!pillBar||!grid)return;
+
+  const cards=Array.from(grid.querySelectorAll('.child-card'));
+  const state={age:null,gender:null,query:''};
+
+  function apply(){
+    let shown=0;
+    cards.forEach(card=>{
+      const matchAge=!state.age||card.dataset.age===state.age;
+      const matchGender=!state.gender||card.dataset.gender===state.gender;
+      const matchQuery=!state.query||(card.dataset.name||'').toLowerCase().includes(state.query);
+      const match=matchAge&&matchGender&&matchQuery;
+      card.style.display=match?'':'none';
+      if(match)shown++;
+    });
+    countEl.textContent=shown;
+    let empty=grid.querySelector('.child-empty');
+    if(shown===0){
+      if(!empty){empty=document.createElement('div');empty.className='child-empty';empty.textContent='No profiles match those filters.';grid.appendChild(empty);}
+    }else if(empty){empty.remove();}
+  }
+
+  pillBar.addEventListener('click',(e)=>{
+    const btn=e.target.closest('.pill');if(!btn)return;
+    const filter=btn.dataset.filter;
+    if(filter==='all'){
+      state.age=null;state.gender=null;
+      pillBar.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+    }else{
+      const[type,val]=filter.split(':');
+      pillBar.querySelector('.pill[data-filter="all"]').classList.remove('active');
+      const group=btn.closest('.pill-group');
+      const wasActive=btn.classList.contains('active');
+      group.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+      if(!wasActive){btn.classList.add('active');state[type]=val;}else{state[type]=null;}
+      if(!state.age&&!state.gender){pillBar.querySelector('.pill[data-filter="all"]').classList.add('active');}
+    }
+    apply();
+  });
+
+  searchInput.addEventListener('input',(e)=>{state.query=e.target.value.trim().toLowerCase();apply();});
+})();
+</script>
+
+</body>
+</html>

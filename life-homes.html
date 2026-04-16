@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Homes — Align International</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FDFCFA;--warm:#F5F0EB;--warm-dk:#EBE4DA;--ink:#1C1917;--ink2:#57534E;--ink3:#A8A29E;--accent:#B8533A;--accent-dk:#9A4430;--navy:#1E293B;--navy-lt:#334155;--forest:#3A5A40;--border:rgba(0,0,0,.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── ANNOUNCEMENT BAR ── */
+.topbar{background:var(--navy);text-align:center;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.3px;position:fixed;top:0;left:0;right:0;z-index:101;}
+.topbar a{color:rgba(255,255,255,.9);font-weight:600;text-decoration:none;margin-left:4px;}.topbar a:hover{text-decoration:underline;color:#fff;}
+
+/* ── NAV ── */
+nav{position:fixed;top:36px;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px 52px;background:rgba(253,252,250,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--navy);text-decoration:none;letter-spacing:-.4px;}
+.nav-r{display:flex;gap:28px;align-items:center;}
+.nav-r a{font-size:14px;font-weight:500;letter-spacing:.5px;color:var(--ink2);text-decoration:none;transition:.2s;}.nav-r a:hover{color:var(--ink);}
+.nav-r a.active{color:var(--ink);font-weight:600;}
+.nav-cta{background:var(--navy);color:#fff!important;padding:11px 26px;border-radius:4px;transition:background .2s;}.nav-cta:hover{background:var(--navy-lt)!important;}
+
+/* hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:200;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:.3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(253,252,250,0.98);backdrop-filter:blur(20px);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--ink);text-decoration:none;font-weight:500;transition:.2s;}
+.mobile-menu a:hover{color:var(--accent);}
+.mobile-menu .nav-cta{font-family:'Source Sans 3',sans-serif;font-size:16px;margin-top:12px;padding:14px 40px;}
+
+/* ── SHARED ── */
+.btn-main{display:inline-block;padding:16px 44px;font-size:16px;font-weight:600;text-decoration:none;border-radius:4px;background:var(--accent);color:#fff;transition:.2s;}.btn-main:hover{background:var(--accent-dk);}
+.s-eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+
+/* fade-in on scroll */
+.fade-up{opacity:.92;transform:translateY(12px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1);}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ── HERO (centered editorial with photo backdrop) ── */
+.hero-centered{padding:160px 52px 96px;background:linear-gradient(rgba(245,240,235,.88),rgba(245,240,235,.92)),url('https://aligninternational.net/Files/Static/Life%20Home%20Village/IMG_0574.JPG') center/cover no-repeat;text-align:center;position:relative;}
+.hero-centered > *{position:relative;z-index:1;}
+.hero-centered .s-eyebrow{margin-bottom:20px;display:inline-block;}
+.hero-centered h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4.6vw,58px);font-weight:400;line-height:1.15;letter-spacing:-.4px;margin-bottom:28px;max-width:900px;margin-left:auto;margin-right:auto;}
+.hero-centered p{font-size:19px;color:var(--ink2);max-width:760px;margin:0 auto 22px;line-height:1.8;}
+.hero-centered p:last-child{margin-bottom:0;}
+.hero-centered p strong{color:var(--ink);font-weight:600;}
+
+/* ── WHAT ARE LIFE HOMES ── */
+.text-section{padding:80px 52px;background:var(--bg);}
+.text-inner{max-width:780px;margin:0 auto;}
+.text-section .s-eyebrow{text-align:center;display:block;}
+.text-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,3.6vw,44px);font-weight:400;margin-bottom:36px;letter-spacing:-.3px;text-align:center;}
+.text-section p{font-size:18px;line-height:1.85;color:var(--ink2);margin-bottom:22px;}
+.text-section p:last-child{margin-bottom:0;}
+.text-section p strong{color:var(--ink);font-weight:600;}
+
+/* ── LIFE AT THE VILLAGE — 3-UP FEATURE GRID ── */
+.feature-section{padding:80px 52px;background:var(--warm);}
+.feature-inner{max-width:1240px;margin:0 auto;}
+.feature-head{text-align:center;margin-bottom:52px;}
+.feature-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.4vw,42px);font-weight:400;margin-bottom:16px;letter-spacing:-.3px;}
+.feature-head p{font-size:17px;line-height:1.75;color:var(--ink2);max-width:640px;margin:0 auto;}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.feature-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .3s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1);}
+.feature-card:hover{box-shadow:0 12px 32px rgba(0,0,0,.08);transform:translateY(-3px);}
+.feature-photo{width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--warm-dk);}
+.feature-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,.61,.36,1);}
+.feature-card:hover .feature-photo img{transform:scale(1.04);}
+.feature-body{padding:28px 30px 32px;display:flex;flex-direction:column;flex:1;}
+.feature-body .f-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.feature-body h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin-bottom:12px;letter-spacing:-.2px;line-height:1.25;}
+.feature-body p{font-size:15.5px;color:var(--ink2);line-height:1.7;}
+
+/* ── GODFREY STORY — CENTERPIECE ── */
+.story{padding:80px 52px;background:var(--bg);}
+.story-head{text-align:center;margin-bottom:56px;}
+.story-head .s-eyebrow{margin-bottom:14px;}
+.story-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4.2vw,52px);font-weight:400;letter-spacing:-.3px;margin-bottom:12px;line-height:1.15;}
+.story-head h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;font-style:italic;color:var(--ink2);}
+.story-photos{max-width:1080px;margin:0 auto 64px;display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.story-photo{display:flex;flex-direction:column;}
+.story-photo .photo-frame{border-radius:12px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.1);}
+.story-photo img{width:100%;height:440px;object-fit:cover;display:block;}
+.story-photo figcaption{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--ink3);text-align:center;margin-top:22px;letter-spacing:.2px;line-height:1.4;}
+.story-body{max-width:720px;margin:0 auto;}
+.story-body p{font-size:18px;line-height:1.9;color:var(--ink2);margin-bottom:20px;}
+.story-body p:last-child{margin-bottom:0;}
+.story-body p:first-child::first-letter{font-family:'Cormorant Garamond',serif;font-size:68px;font-weight:600;color:var(--accent);float:left;line-height:.82;padding:8px 14px 0 0;}
+
+/* ── DONATE CTA ── */
+.donate-cta{padding:80px 52px 20px;background:var(--warm);text-align:center;}
+.donate-cta h2{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;margin-bottom:16px;}
+.donate-cta p{font-size:18px;color:var(--ink2);line-height:1.75;max-width:620px;margin:0 auto 36px;}
+
+/* ── NEWSLETTER ── */
+.nl-section{padding:48px 52px;background:var(--bg);}
+.nl-bar{max-width:1100px;margin:0 auto;background:#fff;border-radius:12px;padding:28px 40px;display:flex;align-items:center;gap:32px;box-shadow:0 2px 12px rgba(0,0,0,.04);border:1px solid var(--border);}
+.nl-bar p{font-size:17px;color:var(--ink2);line-height:1.5;flex:1;margin:0;}
+.nl-bar p strong{color:var(--ink);font-weight:600;}
+.nl-form{display:flex;gap:10px;flex-shrink:0;}
+.nl-form input[type="email"]{padding:13px 18px;font-size:15px;font-family:'Source Sans 3',sans-serif;border:1px solid var(--border);border-radius:6px;background:#fff;color:var(--ink);outline:none;width:240px;transition:border .2s;}.nl-form input[type="email"]:focus{border-color:var(--accent);}
+.nl-form input[type="email"]::placeholder{color:var(--ink3);}
+.nl-form button{padding:13px 28px;font-size:15px;font-weight:600;font-family:'Source Sans 3',sans-serif;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;transition:.2s;white-space:nowrap;}.nl-form button:hover{background:var(--accent-dk);}
+
+/* FOOTER */
+footer{padding:52px;background:var(--ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:36px;}
+.fc{min-width:150px;}
+footer h4{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px;}
+footer a,footer p{font-size:14.5px;color:rgba(255,255,255,.5);text-decoration:none;display:block;margin-bottom:8px;line-height:1.5;}
+footer a:hover{color:#fff;}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:6px;}
+.foot-tag{font-size:12px;color:rgba(255,255,255,.25);line-height:1.6;}
+.social-links{display:flex;gap:14px;margin-top:14px;}
+.social-links a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);font-size:15px;transition:.2s;text-decoration:none;}
+.social-links a:hover{background:rgba(255,255,255,.15);color:#fff;}
+.social-links svg{width:16px;height:16px;fill:currentColor;}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .nav-r{display:none;}
+  .hamburger{display:flex;}
+  .hero-centered{padding:120px 24px 64px;}
+  .text-section{padding:48px 24px;}
+  .feature-section{padding:48px 24px;}
+  .feature-grid{grid-template-columns:1fr;gap:22px;}
+  .story{padding:48px 24px;}
+  .story-photos{grid-template-columns:1fr;gap:20px;margin-bottom:40px;}
+  .story-photo img{height:320px;}
+  .donate-cta{padding:48px 24px 12px;}
+  .nl-section{padding:24px 16px;}.nl-bar{flex-direction:column;gap:16px;padding:24px;}.nl-form{width:100%;}.nl-form input[type="email"]{width:100%;flex:1;}
+  footer{padding:36px 20px;flex-direction:column;}
+}
+@media(max-width:560px){.topbar{font-size:11px;padding:8px 12px;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  Celebrating 20 years of faithful giving — 2006 to 2026 <a href="who-we-are.html">Read our story →</a>
+</div>
+
+<nav>
+  <a class="logo" href="index.html">Align International</a>
+  <div class="nav-r">
+    <a href="who-we-are.html">About</a>
+    <a href="sponsorship.html">Sponsorship</a>
+    <a href="life-homes.html" class="active">Life Homes</a>
+    <a href="education.html">Education</a>
+    <a href="events.html">Events</a>
+    <a href="blogs.html">News</a>
+    <a href="give.html" class="nav-cta">Donate</a>
+  </div>
+  <button class="hamburger" onclick="this.classList.toggle('open');document.getElementById('mob-menu').classList.toggle('open');" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mob-menu">
+  <a href="who-we-are.html" onclick="document.getElementById('mob-menu').classList.remove('open')">About</a>
+  <a href="sponsorship.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Sponsorship</a>
+  <a href="life-homes.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Life Homes</a>
+  <a href="education.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Education</a>
+  <a href="events.html" onclick="document.getElementById('mob-menu').classList.remove('open')">Events</a>
+  <a href="blogs.html" onclick="document.getElementById('mob-menu').classList.remove('open')">News</a>
+  <a href="give.html" class="nav-cta" onclick="document.getElementById('mob-menu').classList.remove('open')">Donate</a>
+</div>
+
+<!-- ═══ 1. HERO ═══ -->
+<section class="hero-centered" id="what-are-lifehomes">
+  <div class="s-eyebrow">Life Homes</div>
+  <h1>What are Life Homes?</h1>
+  <p>The Life Home Village is a place where abused, neglected, and abandoned children are given the loving care every child needs — and a place where they thrive.</p>
+  <p>When our Sponsorship Program began in 2006, we quickly saw children's lives improve through daily food, clean water, basic health care, and education. But our partners at <strong>Bombo Pentecostal Church</strong> recognized that some children weren't progressing at the same rate as others. Their home environments were unstable, and many endured physical, mental, or emotional abuse.</p>
+  <p>In response, BPC and Align worked with sponsors to build homes where these children could flourish. Our first Life Home was completed in <strong>2012</strong>, followed by the second in <strong>2013</strong>. The transformation we witnessed in these children was so profound that we began envisioning a full Life Home community — the Village that stands today.</p>
+</section>
+
+<!-- ═══ 3. LIFE AT THE VILLAGE — 3-UP GRID ═══ -->
+<section class="feature-section">
+  <div class="feature-inner fade-up">
+    <div class="feature-head">
+      <div class="s-eyebrow">Life at the Village</div>
+      <h2>A refuge where children are cared for</h2>
+      <p>Housing up to 40 children across four homes, the Life Home Village is a place of physical, emotional, and spiritual care — and a foundation for the rest of a child's life.</p>
+    </div>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <div class="feature-photo">
+          <img src="https://aligninternational.net/Files/Static/Life%20Home%20Village/IMG_0574.JPG" alt="Daily life at the Life Home Village">
+        </div>
+        <div class="feature-body">
+          <div class="f-eyebrow">Daily Life</div>
+          <h3>A loving family environment</h3>
+          <p>Each of the four homes is led by a designated caretaker dedicated to creating a stable, loving family for the children who live there — so every child can grow up feeling seen, safe, and known.</p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-photo">
+          <img src="https://aligninternational.net/Files/Static/Life%20Home%20Village/20201119_143559.jpg" alt="Children learning life skills">
+        </div>
+        <div class="feature-body">
+          <div class="f-eyebrow">Life Skills</div>
+          <h3>Equipped for what comes next</h3>
+          <p>Children are given daily responsibilities that teach vital life skills and the value of working together — habits they will carry into adulthood and their future spheres of influence.</p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-photo">
+          <img src="https://aligninternational.net/Files/Static/Life%20Home%20Village/IMG_1174.JPG" alt="The future of the Life Home Village">
+        </div>
+        <div class="feature-body">
+          <div class="f-eyebrow">Looking Ahead</div>
+          <h3>Growing into a community</h3>
+          <p>Thanks to years of faithful donors, the Village has grown to include a playground, sports equipment, a community center, and dedicated spaces for learning, growth, and play — a safe haven for the children here today and those yet to come.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4. GODFREY'S STORY ═══ -->
+<section class="story fade-up" id="lifehome-stories">
+  <div class="story-head">
+    <div class="s-eyebrow">A Life Transformed</div>
+    <h2>Godfrey Ssekito</h2>
+    <h3>From searching for food to building a future</h3>
+  </div>
+
+  <div class="story-photos">
+    <figure class="story-photo">
+      <div class="photo-frame">
+        <img src="https://aligninternational.net/Files/Static/Life%20Home%20Village/Godfrey%20and%20little%20sister%20Scholastica.jpg" alt="Godfrey and his sister Scholastica in 2014">
+      </div>
+      <figcaption>Godfrey &amp; little sister Scholastica, 2014</figcaption>
+    </figure>
+    <figure class="story-photo">
+      <div class="photo-frame">
+        <img src="https://aligninternational.net/Files/Static/Life%20Home%20Village/Godfrey.jpg" alt="Godfrey today">
+      </div>
+      <figcaption>Godfrey today</figcaption>
+    </figure>
+  </div>
+
+  <div class="story-body">
+    <p>Godfrey was brought to the attention of our BPC partners in 2014. As the eldest boy of a child-led home of four, he spent his days searching for food and other essentials to help his siblings survive.</p>
+    <p>That same year, God blessed the entire family when all of them were sponsored through our program. Soon after, all four children were enrolled in school and moved into Life Homes — where God continued to build Godfrey up as a young man of character.</p>
+    <p>Today, with the help of his sponsors and our generous Scholarship Program supporters, Godfrey is in his final year at Gombe Community Polytechnic School, where he is studying toward a certificate in Motor Vehicle Mechanics.</p>
+    <p>We have already witnessed Godfrey's incredible commitment to care for his siblings, and we look forward to seeing how God uses him to make an impact in his community.</p>
+  </div>
+</section>
+
+<!-- ═══ 5. DONATE CTA ═══ -->
+<section class="donate-cta fade-up">
+  <h2>Give a Child a Home</h2>
+  <p>Build a legacy in Uganda by helping us operate and expand our Life Home Village — giving safety, family, and a future to children who have lost everything.</p>
+  <a class="btn-main" href="https://aligninternational.net/project/life-home-village">Donate to Life Home Village</a>
+  <p style="margin-top:24px;"><a href="give.html" style="font-size:15px;color:var(--ink2);text-decoration:none;font-weight:500;transition:.2s;">Explore All Ways to Give <span style="margin-left:2px;">&rarr;</span></a></p>
+</section>
+
+<!-- ═══ NEWSLETTER SIGNUP ═══ -->
+<section class="nl-section">
+  <div class="nl-bar">
+    <p><strong>Stay connected</strong> &mdash; stories from Uganda, upcoming events, and ways to get involved.</p>
+    <form class="nl-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓';this.querySelector('input').disabled=true;">
+      <input type="email" placeholder="Your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="fc">
+    <div class="foot-logo">Align International</div>
+    <div class="foot-tag">501(c)(3) · Tax ID 20-5491118<br><br>27525 Puerta Real, Suite 300 #426<br>Mission Viejo, CA 92691<br>949-371-9901</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/aligninternational" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.facebook.com/aligninternationalusa" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.youtube.com/channel/UCI2vu2OdQ2yGPCZ0b46nFNQ" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://x.com/alignintl" aria-label="X / Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://www.tiktok.com/@aligninternational" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.77 1.52V6.82a4.84 4.84 0 01-1-.13z"/></svg></a>
+    </div>
+  </div>
+  <div class="fc"><h4>Donate</h4><a href="sponsorship.html#sponsor-a-child">Sponsor a Child</a><a href="projects.html">Projects</a><a href="give.html">Give</a></div>
+  <div class="fc"><h4>Programs</h4><a href="sponsorship.html">Sponsorship</a><a href="life-homes.html">Life Homes</a><a href="education.html#donela-schools">Donela Schools</a><a href="education.html#scholarship-program">Scholarship Program</a></div>
+  <div class="fc"><h4>About</h4><a href="who-we-are.html">Our Story</a><a href="who-we-are.html#our-partners">Our Partners</a><a href="contact.html">Contact</a><a href="blogs.html">News</a></div>
+  <div class="fc"><h4>Get Involved</h4><a href="events.html">Events</a><a href="blogs.html">Newsletter</a></div>
+</footer>
+
+<script>
+// Nav shadow on scroll
+window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>20);});
+
+// Fade-up on scroll
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
